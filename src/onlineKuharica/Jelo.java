@@ -1,87 +1,92 @@
 package onlineKuharica;
 
 public class Jelo {
-    private Integer jelo_id;
-    private int kuhar_id;
-    private String ime_jela;
-    private int vrsta_jela_id;
-    private int tezina_pripreme;
-    private String trajanje_pripreme;
-    private int broj_osoba;
-    private String opis_jela;
+    private Integer jeloId;
+    private Integer kuharId;
+    private String imeJela;
+    private Integer vrstaJelaId;
+    private Integer tezinaPripreme;
+    private String trajanjePripreme;
+    private Integer brojOsoba;
+    private String opisJela;
 
-    public int getJelo_id() {
-        return jelo_id;
+    public Jelo(Integer jeloId, Integer kuharId, String imeJela, Integer vrstaJelaId, Integer tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
+        this.jeloId = jeloId;
+        this.kuharId = kuharId;
+        this.imeJela = imeJela;
+        this.vrstaJelaId = vrstaJelaId;
+        this.tezinaPripreme = tezinaPripreme;
+        this.trajanjePripreme = trajanjePripreme;
+        this.brojOsoba = brojOsoba;
+        this.opisJela = opisJela;
     }
 
-    public void setJelo_id(int jelo_id) {
-        this.jelo_id = jelo_id;
+    public Jelo() {
     }
 
-    public Integer getKuhar_id() {
-        return kuhar_id;
+    public Integer getJeloId() {
+        return jeloId;
     }
 
-    public void setKuhar_id(int kuhar_id) {
-        this.kuhar_id = kuhar_id;
+    public void setJeloId(Integer jeloId) {
+        this.jeloId = jeloId;
     }
 
-    public String getIme_jela() {
-        return ime_jela;
+    public Integer getKuharId() {
+        return kuharId;
     }
 
-    public void setIme_jela(String ime_jela) {
-        this.ime_jela = ime_jela;
+    public void setKuharId(Integer kuharId) {
+        this.kuharId = kuharId;
     }
 
-    public int getVrsta_jela_id() {
-        return vrsta_jela_id;
+    public String getImeJela() {
+        return imeJela;
     }
 
-    public void setVrsta_jela_id(int vrsta_jela_id) {
-        this.vrsta_jela_id = vrsta_jela_id;
+    public void setImeJela(String imeJela) {
+        this.imeJela = imeJela;
     }
 
-    public int getTezina_pripreme() {
-        return tezina_pripreme;
+    public Integer getVrstaJelaId() {
+        return vrstaJelaId;
     }
 
-    public void setTezina_pripreme(int tezina_pripreme) {
-        this.tezina_pripreme = tezina_pripreme;
+    public void setVrstaJelaId(Integer vrstaJelaId) {
+        this.vrstaJelaId = vrstaJelaId;
     }
 
-    public String getTrajanje_pripreme() {
-        return trajanje_pripreme;
+    public Integer getTezinaPripreme() {
+        return tezinaPripreme;
     }
 
-    public void setTrajanje_pripreme(String trajanje_pripreme) {
-        this.trajanje_pripreme = trajanje_pripreme;
+    public void setTezinaPripreme(Integer tezinaPripreme) {
+        this.tezinaPripreme = tezinaPripreme;
     }
 
-    public int getBroj_osoba() {
-        return broj_osoba;
+    public String getTrajanjePripreme() {
+        return trajanjePripreme;
     }
 
-    public void setBroj_osoba(int broj_osoba) {
-        this.broj_osoba = broj_osoba;
+    public void setTrajanjePripreme(String trajanjePripreme) {
+        this.trajanjePripreme = trajanjePripreme;
     }
 
-    public String getOpis_jela() {
-        return opis_jela;
+    public Integer getBrojOsoba() {
+        return brojOsoba;
     }
 
-    public void setOpis_jela(String opis_jela) {
-        this.opis_jela = opis_jela;
+    public void setBrojOsoba(Integer brojOsoba) {
+        this.brojOsoba = brojOsoba;
     }
 
-    public Jelo(Integer jelo_id, int kuhar_id, String ime_jela, int vrsta_jela_id, String trajanje_pripreme, int broj_osoba, String opis_jela) {
-        this.jelo_id = jelo_id;
-        this.kuhar_id = kuhar_id;
-        this.ime_jela = ime_jela;
-        this.vrsta_jela_id = vrsta_jela_id;
-        this.tezina_pripreme = tezina_pripreme;
-        this.trajanje_pripreme = trajanje_pripreme;
-        this.broj_osoba = broj_osoba;
-        this.opis_jela = opis_jela;
+    public String getOpisJela() {
+        return opisJela;
     }
+
+    public void setOpisJela(String opisJela) {
+        this.opisJela = opisJela;
+    }
+
 }
+

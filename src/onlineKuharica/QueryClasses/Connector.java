@@ -1,15 +1,15 @@
-package onlineKuharica;
+package onlineKuharica.QueryClasses;
 
 import java.sql.*;
-public class Konektor {
+public class Connector {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/?autoReconnect=true&useSSL=false";
 
     private static final String USER = "root";
     private static final String PASS = "admin";
-    static Connection conn = null;
-    static Statement stmt = null;
-    static PreparedStatement prpStmt = null;
+    protected static Connection conn = null;
+    protected static Statement stmt = null;
+    protected static PreparedStatement prpStmt = null;
 
     public static void connectToDatabase()
     {
