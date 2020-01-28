@@ -36,7 +36,7 @@ public class VrstaJela extends VrstaJelaSQL {
      * @return Vrsta jela
      */
     public VrstaJela getVrstaJelaById(Integer vrstaJelaId){
-        VrstaJelaSQL vrstaJelaSQL = new VrstaJela();
+        VrstaJelaSQL vrstaJelaSQL = new VrstaJelaSQL();
         return vrstaJelaSQL.getVrstaJelaByIdDB(vrstaJelaId);
     }
 
