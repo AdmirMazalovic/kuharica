@@ -18,7 +18,13 @@ public class Main {
 //            vrstaJela = vrstaJela.getVrstaJelaById(8);
 //            System.out.println(vrstaJela.getVrsta_jela());
         kuhar = kuhar.getKuharById(1);
-        System.out.println(kuhar.getDatumRegistracije());
+        //kuhar = kuhar.getKuharByName("Pero");
+        System.out.println(kuhar.getPrezime());
+
+        kuhar.setIme("TestIme");
+        kuhar.setPrezime("TesetPrezime");
+        kuhar.setEmail("test@mail");
+        kuhar = kuhar.addKuhar(kuhar);
 
     }
 }

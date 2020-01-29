@@ -161,4 +161,25 @@ public class Kuhar extends KuharSQL {
         KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getKuharByIdDB(kuharId);
     }
+
+    /**
+     * Dohvati kuhara iz baze po imenu
+     * @param imeKuhara - ime kuhara
+     * @return - kuhar
+     */
+    public Kuhar getKuharByName(String imeKuhara){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.getKuharByNameDB(imeKuhara);
+    }
+
+
+    /**
+     * Dodaj novog kuhara u bazu
+     * @param kuhar - kuhar kojeg dodajemo u bazu
+     * @return - kuhar koji je dadan u bazu
+     */
+    public Kuhar addKuhar(Kuhar kuhar){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.addKuharDB(kuhar);
+    }
 }
