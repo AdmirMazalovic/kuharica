@@ -21,6 +21,7 @@ public class Main {
         //kuhar = kuhar.getKuharByName("Pero");
         System.out.println(kuhar.getPrezime());
 
+        kuhar.setDrzava("BiH");
         kuhar.setIme("TestIme");
         kuhar.setPrezime("TesetPrezime");
         kuhar.setEmail("test@mail");

@@ -3,6 +3,7 @@ package onlineKuharica.QueryClasses;
 import onlineKuharica.Kuhar;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -73,7 +74,6 @@ public class KuharSQL extends Connector {
 
     public Kuhar addKuharDB(Kuhar kuhar) {
         connectToDatabase();
-
         try {
             prpStmt = conn.prepareStatement(sqlAddKuhar);
             prpStmt.setNull(1, Types.INTEGER);
@@ -89,10 +89,8 @@ public class KuharSQL extends Connector {
             prpStmt.setString(11, kuhar.getAdresa());
             prpStmt.setString(12, kuhar.getBrojTelefona());
             prpStmt.setString(13, kuhar.getOmeni());
-           // prpStmt.setDate(13, (Date) kuhar.getDatumRegistracije());
-            prpStmt.setNull(14, Types.TIMESTAMP);
-           // Date date = Date.valueOf(String.valueOf(LocalDateTime.now()));
-           // prpStmt.setTime(14, date);
+            Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+            prpStmt.setTimestamp(14, date);
             prpStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
