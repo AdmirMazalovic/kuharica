@@ -2,12 +2,10 @@ package onlineKuharica.QueryClasses;
 
 import onlineKuharica.Kuhar;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.LocalDateTime;
 
 public class KuharSQL extends Connector {
     ResultSet rs = null;
@@ -82,7 +80,7 @@ public class KuharSQL extends Connector {
             prpStmt.setString(4, kuhar.getEmail());
             prpStmt.setString(5, kuhar.getPassword());
             prpStmt.setString(6, String.valueOf(kuhar.getSpol()));
-            prpStmt.setDate(7, (Date) kuhar.getDatumRodjenja());
+            prpStmt.setString(7, kuhar.getDatumRodjenja().toString());
             prpStmt.setString(8, kuhar.getDrzava());
             prpStmt.setString(9, kuhar.getGrad());
             prpStmt.setInt(10, kuhar.getZip());
@@ -97,7 +95,6 @@ public class KuharSQL extends Connector {
         }
         return getKuharByNameDB(kuhar.getIme());
     }
-//"(`kuhar_id`,`ime` ,`prezime`, `email`, `password`, `spol`, `datum_rodjenja`, `drzava`, `grad`, `zip`, `adresa`, `broj_telefona`, `o_meni`,`datum_registracije`)"
 
     /**
      * Helper funkcija za setovanje polja u objektu kuhar koji se dobije iz ResultSet objekta
@@ -118,6 +115,6 @@ public class KuharSQL extends Connector {
         kuhar.setAdresa(rs.getString("adresa"));
         kuhar.setBrojTelefona(rs.getString("broj_telefona"));
         kuhar.setOmeni(rs.getString("o_meni"));
-        kuhar.setDatumRegistracije(rs.getTimestamp("datum_registracije"));
+        kuhar.setDatumRegistracije(rs.getDate("datum_registracije"));
     }
 }

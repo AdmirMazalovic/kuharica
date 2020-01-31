@@ -2,10 +2,10 @@ package onlineKuharica;
 
 import onlineKuharica.QueryClasses.KuharSQL;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Kuhar extends KuharSQL {
-    private Integer kuharId;
+    private Integer kuharId = null;
     private String ime;
     private String prezime;
     private String email;
@@ -18,10 +18,9 @@ public class Kuhar extends KuharSQL {
     private String adresa;
     private String brojTelefona;
     private String oMeni;
-    private Date datumRegistracije;
+    private Date datumRegistracije = null;
 
-    public Kuhar(Integer kuharId, String ime, String prezime, String email, String password, char spol, Date datumRodjenja, String drzava, String grad, Integer zip, String adresa, String brojTelefona, String oMeni, Date datumRegistracije) {
-        this.kuharId = kuharId;
+    public Kuhar(String ime, String prezime, String email, String password, char spol, Date datumRodjenja, String drzava, String grad, Integer zip, String adresa, String brojTelefona, String oMeni) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
@@ -34,7 +33,6 @@ public class Kuhar extends KuharSQL {
         this.adresa = adresa;
         this.brojTelefona = brojTelefona;
         this.oMeni = oMeni;
-        this.datumRegistracije = datumRegistracije;
     }
 
     public Kuhar() {
@@ -171,7 +169,6 @@ public class Kuhar extends KuharSQL {
         KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getKuharByNameDB(imeKuhara);
     }
-
 
     /**
      * Dodaj novog kuhara u bazu
