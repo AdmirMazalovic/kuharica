@@ -20,30 +20,31 @@ public class Main {
 //         vrstaJela.addVrstaJela(vrstaJela);
 //            vrstaJela = vrstaJela.getVrstaJelaById(8);
 //            System.out.println(vrstaJela.getVrsta_jela());
-        kuhar = kuhar.getKuharById(1);
+        kuhar = kuhar.getKuharForLogin("Ana", "Anić", "ana0000");
         //kuhar = kuhar.getKuharByName("Pero");
-        System.out.println(kuhar.getPrezime());
-
-        kuhar.setDrzava("BiH");
-        kuhar.setIme("TestIme");
-        kuhar.setPrezime("TesetPrezime");
-        kuhar.setEmail("e@mail");
-        kuhar = kuhar.addKuhar(kuhar);
-        System.out.println(kuhar);
-        LocalDate locald = LocalDate.of(1967, 06, 22);
-        Date date = Date.valueOf(locald);
-        Kuhar kuhar1 = new Kuhar("Kuhar",
-                "Prezime",
-                "email@email.com",
-                "111aaaa",
-                'M',
-                date,
-                "USA",
-                "New York",
-                11111,
-                "address",
-                "00000000",
-                "this is about me");
-        kuhar1.addKuhar(kuhar1);
+       // System.out.println(kuhar.getBrojTelefona());
+        kuhar.setIme("AnaUpdated");
+        kuhar.updateKuharInfo(kuhar);
+//        kuhar.setDrzava("BiH");
+//        kuhar.setIme("TestIme");
+//        kuhar.setPrezime("TesetPrezime");
+//        kuhar.setEmail("e@mail");
+//        kuhar = kuhar.addKuhar(kuhar);
+//        System.out.println(kuhar);
+//        LocalDate locald = LocalDate.of(1967, 06, 22);
+//        Date date = Date.valueOf(locald);
+//        Kuhar kuhar1 = new Kuhar("ime",
+//                "Prezime",
+//                "emailemail@email.com",
+//                "111aaaa",
+//                'M',
+//                date,
+//                "USA",
+//                "New York",
+//                11111,
+//                "address",
+//                "00000000",
+//                "this is about me");
+//        kuhar1.addKuhar(kuhar1);
     }
 }

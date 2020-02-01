@@ -165,9 +165,21 @@ public class Kuhar extends KuharSQL {
      * @param imeKuhara - ime kuhara
      * @return - kuhar
      */
-    public Kuhar getKuharByName(String imeKuhara){
+    public Kuhar getKuharByName(String imeKuhara, String prezime){
         KuharSQL kuharSQL = new KuharSQL();
-        return kuharSQL.getKuharByNameDB(imeKuhara);
+        return kuharSQL.getKuharByNameDB(imeKuhara, prezime);
+    }
+
+    /**
+     * Dohvati kuhara iz baze po kombinaciji ime, pezime i password (koristi se za login u aplikaciju)
+     * @param ime - ime kuhara
+     * @param prezime - prezime kuhara
+     * @param password - password kuhara
+     * @return kuhar
+     */
+    public Kuhar getKuharForLogin(String ime, String prezime, String password){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.getKuharForLoginDB(ime, prezime, password);
     }
 
     /**
@@ -178,5 +190,15 @@ public class Kuhar extends KuharSQL {
     public Kuhar addKuhar(Kuhar kuhar){
         KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.addKuharDB(kuhar);
+    }
+
+    /**
+     * Update informacije za kuhara
+     * @param kuhar - kuhar za update informacija
+     * @return - kuhar sa novim informacijama
+     */
+    public Kuhar updateKuharInfo(Kuhar kuhar){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.updateKuharInfoDB(kuhar);
     }
 }
