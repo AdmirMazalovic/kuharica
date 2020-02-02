@@ -9,6 +9,7 @@ public class Connector {
     private static final String PASS = "admin";
     protected static Connection conn = null;
     protected static Statement stmt = null;
+    protected static ResultSet rs = null;
     protected static PreparedStatement prpStmt = null;
 
     public static void connectToDatabase()

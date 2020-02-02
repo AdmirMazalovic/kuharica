@@ -1,6 +1,5 @@
 package onlineKuharica.QueryClasses;
 
-import onlineKuharica.QueryClasses.Connector;
 import onlineKuharica.VrstaJela;
 
 import java.sql.ResultSet;
@@ -8,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 public class VrstaJelaSQL extends Connector {
-    ResultSet rs = null;
+   // ResultSet rs = null;
     String sqlGetVrstaJelaById = "SELECT `vrsta_jela`, `vrsta_jela_id` FROM `online_kuharica`.`vrsta_jela` WHERE `vrsta_jela_id` = ?";
     String sqlGetVrstaJelaByName = "SELECT `vrsta_jela`, `vrsta_jela_id` FROM `online_kuharica`.`vrsta_jela` WHERE `vrsta_jela` = ?";
     String sqlAddVrstaJela = "INSERT INTO `online_kuharica`.`vrsta_jela` (`vrsta_jela_id`, `vrsta_jela`) VALUES (?, ?)";

@@ -2,9 +2,10 @@ package onlineKuharica;
 
 import onlineKuharica.QueryClasses.KuharSQL;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Kuhar extends KuharSQL {
+public class Kuhar extends KuharSQL implements Serializable {
     private Integer kuharId = null;
     private String ime;
     private String prezime;
@@ -200,5 +201,25 @@ public class Kuhar extends KuharSQL {
     public Kuhar updateKuharInfo(Kuhar kuhar){
         KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.updateKuharInfoDB(kuhar);
+    }
+
+    /**
+     * Update password kuhara
+     * @param kuhar - kuhar ciji se password updatuje
+     * @return - kuhar sa novim passwordom
+     */
+    public Kuhar updateKuharPassword(Kuhar kuhar){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.updateKuharPasswordDB(kuhar);
+    }
+
+    /**
+     * Izbrisi kuhara iz baze
+     * @param kuhar - kuhar koji se brise
+     * @return - 1 ako je kuhar uspjesno izbrisan, 0 ako nije uspjesno izbrisan
+     */
+    public int deleteKuhar(Kuhar kuhar){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.deleteKuharDB(kuhar);
     }
 }

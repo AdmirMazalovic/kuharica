@@ -2,29 +2,18 @@ package onlineKuharica;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         VrstaJela vrstaJela = new VrstaJela();
         Kuhar kuhar = new Kuhar();
 
-        //       vrstaJela = vrstaJela.getVrstaJelaById(3);
-        //       vrstaJela = vrstaJela.getVrstaJelaByName("Deserti");
-        //   vrstaJela = vrstaJela.getVrstaJelaById(1);
-//        System.out.println(vrstaJela.getVrsta_jela());
-//        System.out.println(vrstaJela.getVrsta_jela_id());
-//        VrstaJela dodanaVrstaJela = vrstaJela.addVrstaJela("X");
-//        System.out.println(dodanaVrstaJela.getVrsta_jela());
-//        System.out.println(dodanaVrstaJela.getVrsta_jela_id());
-//         vrstaJela.setVrsta_jela("testtest");
-//         vrstaJela.addVrstaJela(vrstaJela);
-//            vrstaJela = vrstaJela.getVrstaJelaById(8);
-//            System.out.println(vrstaJela.getVrsta_jela());
-        kuhar = kuhar.getKuharForLogin("Ana", "Anić", "ana0000");
-        //kuhar = kuhar.getKuharByName("Pero");
-       // System.out.println(kuhar.getBrojTelefona());
-        kuhar.setIme("AnaUpdated");
-        kuhar.updateKuharInfo(kuhar);
+        kuhar = kuhar.getKuharById(3);
+        kuhar.setIme("PERO");
+        kuhar = kuhar.updateKuharInfo(kuhar);
+        kuhar.setPassword("11111");
+        kuhar = kuhar.updateKuharPassword(kuhar);
 //        kuhar.setDrzava("BiH");
 //        kuhar.setIme("TestIme");
 //        kuhar.setPrezime("TesetPrezime");
@@ -38,7 +27,7 @@ public class Main {
 //                "emailemail@email.com",
 //                "111aaaa",
 //                'M',
-//                date,
+//                Date.valueOf(LocalDate.now()),
 //                "USA",
 //                "New York",
 //                11111,
@@ -46,5 +35,11 @@ public class Main {
 //                "00000000",
 //                "this is about me");
 //        kuhar1.addKuhar(kuhar1);
+       //kuhar = kuhar.getKuharById(5);
+//       Kuhar kuhar2 = new Kuhar();
+//       kuhar2.setKuharId(2);
+//       System.out.println(kuhar2.deleteKuhar(kuhar2));
+        ArrayList<Kuhar> kuhari = kuhar.getAllKuhar();
+        System.out.println(kuhari);
     }
 }

@@ -3,12 +3,12 @@ package onlineKuharica.QueryClasses;
 import onlineKuharica.Kuhar;
 
 import java.sql.Timestamp;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class KuharSQL extends Connector {
-    ResultSet rs = null;
     String sqlGetKuharById = "SELECT * FROM `online_kuharica`.`kuhar` WHERE `kuhar_id` = ?";
     String sqlGetKuharByName = "SELECT * FROM `online_kuharica`.`kuhar` WHERE `ime` = ? AND `prezime` = ?";
     String sqlGetKuharForLogin = "SELECT * FROM `online_kuharica`.`kuhar` WHERE `ime` = ? AND `prezime` = ? AND `password` = ?";
@@ -17,6 +17,8 @@ public class KuharSQL extends Connector {
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     String sqlUpdateKuhar = "UPDATE online_kuharica.kuhar SET `ime`= ?, `prezime` = ?, `email` = ?, `datum_rodjenja` = ?, `drzava` =  ?, `grad` = ?, `zip` = ?, `adresa` = ?, `broj_telefona` = ?, `o_meni` = ?  WHERE `kuhar_id` = ?";
     String sqlUpdatePassword = "UPDATE online_kuharica.kuhar SET `password` = ? WHERE `kuhar_id` = ?";
+    String sqlDeleteKuhar = "DELETE FROM `online_kuharica`.`kuhar` where kuhar_id = ?;";
+    String sqlGetAllKuhar = "SELECT * FROM online_kuharica.kuhar";
 
     /**
      * Dohvati kuhara iz baze podataka po id-u
@@ -158,6 +160,68 @@ public class KuharSQL extends Connector {
             e.printStackTrace();
         }
         return getKuharByIdDB(kuhar.getKuharId());
+    }
+
+    /**
+     * Update password kuhara (radi povecanja sigurnosti funkcija je odvojena od update drugih informacija kuhara)
+     *
+     * @param kuhar - kuhar za update passworda
+     * @return - kuhar sa novim passwordom
+     */
+    public Kuhar updateKuharPasswordDB(Kuhar kuhar) {
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlUpdatePassword);
+            prpStmt.setString(1, kuhar.getPassword());
+            prpStmt.setInt(2, kuhar.getKuharId());
+            prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getKuharByIdDB(kuhar.getKuharId());
+    }
+
+    /**
+     * Izbrisi kuhara iz baze
+     *
+     * @param kuhar - kuhar koji se brise
+     * @return - 1 ako je kuhar uspjesno izbrisan, 0 ako nije uspjesno izbrisan
+     */
+    public int deleteKuharDB(Kuhar kuhar) {
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlDeleteKuhar);
+            prpStmt.setInt(1, kuhar.getKuharId());
+            return prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * Dohvati sve kuhara iz baze podataka
+     * @return - ArrayList ku
+     */
+    public ArrayList<Kuhar> getAllKuhar() {
+        connectToDatabase();
+        ArrayList<Kuhar> Kuhari = new ArrayList<>();
+        try {
+            prpStmt = conn.prepareStatement(sqlGetAllKuhar);
+            rs = prpStmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()) {
+                Kuhar kuhar = new Kuhar();
+                setKuharObjectFromResposne(kuhar);
+                Kuhari.add(kuhar);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Kuhari;
     }
 
     /**
