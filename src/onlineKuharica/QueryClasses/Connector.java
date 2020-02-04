@@ -23,12 +23,10 @@ public class Connector {
         }
         catch (SQLException e)
         {
-            // Handle error for JBDC
             e.printStackTrace();
         }
         catch (ClassNotFoundException e)
         {
-            // Handle error for Class.forName
             e.printStackTrace();
         }
     }

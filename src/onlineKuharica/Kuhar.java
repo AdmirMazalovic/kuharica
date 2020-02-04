@@ -4,6 +4,7 @@ import onlineKuharica.QueryClasses.KuharSQL;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Kuhar extends KuharSQL implements Serializable {
     private Integer kuharId = null;
@@ -221,5 +222,14 @@ public class Kuhar extends KuharSQL implements Serializable {
     public int deleteKuhar(Kuhar kuhar){
         KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.deleteKuharDB(kuhar);
+    }
+
+    /**
+     * Dohvati sve kuhare iz baze
+     * @return - svi kuhari koji su u bazi online_kuharica
+     */
+    public ArrayList<Kuhar> getAllKuhar(){
+        KuharSQL kuharSQL = new KuharSQL();
+        return kuharSQL.getAllKuharDB();
     }
 }

@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class KuharSQL extends Connector {
     String sqlGetKuharById = "SELECT * FROM `online_kuharica`.`kuhar` WHERE `kuhar_id` = ?";
@@ -38,7 +37,7 @@ public class KuharSQL extends Connector {
         }
         try {
             while (rs.next()) {
-                setKuharObjectFromResposne(kuhar);
+                setKuharObjectFromResponse(kuhar);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +66,7 @@ public class KuharSQL extends Connector {
         }
         try {
             while (rs.next()) {
-                setKuharObjectFromResposne(kuhar);
+                setKuharObjectFromResponse(kuhar);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +97,7 @@ public class KuharSQL extends Connector {
         }
         try {
             while (rs.next()) {
-                setKuharObjectFromResposne(kuhar);
+                setKuharObjectFromResponse(kuhar);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,7 +202,7 @@ public class KuharSQL extends Connector {
      * Dohvati sve kuhara iz baze podataka
      * @return - ArrayList ku
      */
-    public ArrayList<Kuhar> getAllKuhar() {
+    public ArrayList<Kuhar> getAllKuharDB() {
         connectToDatabase();
         ArrayList<Kuhar> Kuhari = new ArrayList<>();
         try {
@@ -215,7 +214,7 @@ public class KuharSQL extends Connector {
         try {
             while (rs.next()) {
                 Kuhar kuhar = new Kuhar();
-                setKuharObjectFromResposne(kuhar);
+                setKuharObjectFromResponse(kuhar);
                 Kuhari.add(kuhar);
             }
         } catch (SQLException e) {
@@ -230,7 +229,7 @@ public class KuharSQL extends Connector {
      * @param kuhar - kuhar objekat cija polja se setuju
      * @throws SQLException
      */
-    private void setKuharObjectFromResposne(Kuhar kuhar) throws SQLException {
+    private void setKuharObjectFromResponse(Kuhar kuhar) throws SQLException {
         kuhar.setKuharId(rs.getInt("kuhar_id"));
         kuhar.setIme(rs.getString("ime"));
         kuhar.setPrezime(rs.getString("prezime"));

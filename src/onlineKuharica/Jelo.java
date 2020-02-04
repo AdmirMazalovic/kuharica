@@ -1,19 +1,24 @@
 package onlineKuharica;
 
+import onlineKuharica.QueryClasses.JeloSQL;
+
+import java.util.ArrayList;
+
 public class Jelo {
     private Integer jeloId;
     private Integer kuharId;
     private String imeJela;
+    private Integer kuhinjaId;
     private Integer vrstaJelaId;
     private Integer tezinaPripreme;
     private String trajanjePripreme;
     private Integer brojOsoba;
     private String opisJela;
 
-    public Jelo(Integer jeloId, Integer kuharId, String imeJela, Integer vrstaJelaId, Integer tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
-        this.jeloId = jeloId;
+    public Jelo(Integer kuharId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, Integer tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
         this.kuharId = kuharId;
         this.imeJela = imeJela;
+        this.kuhinjaId = kuhinjaId;
         this.vrstaJelaId = vrstaJelaId;
         this.tezinaPripreme = tezinaPripreme;
         this.trajanjePripreme = trajanjePripreme;
@@ -46,6 +51,14 @@ public class Jelo {
 
     public void setImeJela(String imeJela) {
         this.imeJela = imeJela;
+    }
+
+    public Integer getKuhinjaId() {
+        return kuhinjaId;
+    }
+
+    public void setKuhinjaId(Integer kuhinjaId) {
+        this.kuhinjaId = kuhinjaId;
     }
 
     public Integer getVrstaJelaId() {
@@ -88,5 +101,14 @@ public class Jelo {
         this.opisJela = opisJela;
     }
 
+    /**
+     * Vraca sva jela od kuhara sa [kuharId]
+     * @param kuharId - id kuhara
+     * @return - sva jela koja je kreirao kuhar
+     */
+    public ArrayList<Jelo> getAllJelaByKuharId(Integer kuharId){
+        JeloSQL jeloSQL = new JeloSQL();
+        return jeloSQL.getJelaByKuharIdDB(kuharId);
+    }
 }
 
