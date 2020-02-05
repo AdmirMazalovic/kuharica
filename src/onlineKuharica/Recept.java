@@ -1,6 +1,6 @@
 package onlineKuharica;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Recept {
     private Integer jeloId;

@@ -103,12 +103,43 @@ public class Jelo {
 
     /**
      * Vraca sva jela od kuhara sa [kuharId]
+     *
      * @param kuharId - id kuhara
      * @return - sva jela koja je kreirao kuhar
      */
-    public ArrayList<Jelo> getAllJelaByKuharId(Integer kuharId){
+    public ArrayList<Jelo> getAllJelaByKuharId(Integer kuharId) {
         JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.getJelaByKuharIdDB(kuharId);
+    }
+
+    /**
+     * Vraca sva jela iz baze
+     *
+     * @return - array list svih jela
+     */
+    public ArrayList<Jelo> getAllJelo() {
+        JeloSQL jeloSQL = new JeloSQL();
+        return jeloSQL.getAllJelo();
+    }
+
+    /**
+     * Vraca sva jela koja pripadaju kuhinji sa [kuhinjaId]
+     * @param kuharId
+     * @return
+     */
+    public ArrayList<Jelo> getJeloByKuhinjaId(Integer kuharId){
+        JeloSQL jeloSQL = new JeloSQL();
+        return jeloSQL.getJelaByKuhinjaIdDB(kuhinjaId);
+    }
+
+    /**
+     * Izbrisi jelo iz baze po [jeloId]
+     * @param jeloId - id jela
+     * @return 1 ako je jelo izbrisano, 0 ako brisanje nije uspjesno
+     */
+    public int deleteJelo(Integer jeloId){
+        JeloSQL jeloSQL = new JeloSQL();
+        return jeloSQL.deleteJeloDB(jeloId);
     }
 }
 
