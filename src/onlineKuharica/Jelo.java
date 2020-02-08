@@ -4,7 +4,7 @@ import onlineKuharica.QueryClasses.JeloSQL;
 
 import java.util.ArrayList;
 
-public class Jelo {
+public class Jelo extends JeloSQL{
     private Integer jeloId;
     private Integer kuharId;
     private String imeJela;

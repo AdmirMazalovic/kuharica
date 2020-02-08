@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class NamirnicaSQL extends Connector{
     String sqlGetNamirnice = "SELECT * FROM `online_kuharica`.`namirnica` WHERE `jelo_id` = ?";
 
-
     /**
      * Dohvati sve namirnice za jelo sa [jeloId]
      * @param jeloId - id jela
