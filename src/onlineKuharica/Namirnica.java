@@ -1,17 +1,17 @@
 package onlineKuharica;
 
-public class Namirnica {
+import onlineKuharica.QueryClasses.NamirnicaSQL;
+
+import java.util.ArrayList;
+
+public class Namirnica extends NamirnicaSQL {
     private Integer namirnicaId;
     private Integer jeloId;
     private String imeNamirnice;
+    private String mjernaJedinica;
+    private Long kolicina;
 
-    public Namirnica(Integer namirnicaId, Integer jeloId, String imeNamirnice) {
-        this.namirnicaId = namirnicaId;
-        this.jeloId = jeloId;
-        this.imeNamirnice = imeNamirnice;
-    }
-
-    public Namirnica() {
+    public Namirnica(){
     }
 
     public Integer getNamirnicaId() {
@@ -36,5 +36,31 @@ public class Namirnica {
 
     public void setImeNamirnice(String imeNamirnice) {
         this.imeNamirnice = imeNamirnice;
+    }
+
+    public String getMjernaJedinica() {
+        return mjernaJedinica;
+    }
+
+    public void setMjernaJedinica(String mjernaJedinica) {
+        this.mjernaJedinica = mjernaJedinica;
+    }
+
+    public Long getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(Long kolicina) {
+        this.kolicina = kolicina;
+    }
+
+    /**
+     * Dohvati sve namirnice za jelo sa [jeloId]
+     * @param jeloId - id jela za kojeg dohvatamo namirnice iz baze
+     * @return - array lista svih namirnica potrebnih za pripremu jela
+     */
+    public ArrayList<Namirnica> getNamirniceByJeloIdDB(Integer jeloId){
+        NamirnicaSQL namirnicaSQL = new NamirnicaSQL();
+        return namirnicaSQL.getNamirniceByJeloIdDB(jeloId);
     }
 }
