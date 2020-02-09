@@ -236,6 +236,7 @@ public class KuharSQL extends Connector {
         kuhar.setIme(rs.getString("ime"));
         kuhar.setPrezime(rs.getString("prezime"));
         kuhar.setEmail(rs.getString("email"));
+        kuhar.setDrzava(rs.getString("drzava"));
         kuhar.setPassword(rs.getString("password"));
         kuhar.setSpol(rs.getString("spol").toCharArray()[0]);
         kuhar.setDatumRodjenja(rs.getDate("datum_rodjenja"));
