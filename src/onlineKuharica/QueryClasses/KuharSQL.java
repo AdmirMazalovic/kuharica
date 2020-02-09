@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class KuharSQL extends Connector {
     String sqlGetKuharById = "SELECT * FROM `online_kuharica`.`kuhar` WHERE `kuhar_id` = ?";
@@ -103,6 +104,7 @@ public class KuharSQL extends Connector {
             e.printStackTrace();
         }
         closeConnectionSQL();
+        if(kuhar.getKuharId() == null) throw new NoSuchElementException();
         return kuhar;
     }
 
