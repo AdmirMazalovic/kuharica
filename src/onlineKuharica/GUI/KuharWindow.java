@@ -118,7 +118,7 @@ public class KuharWindow extends JFrame {
         promijeniPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                PasswordResetWindow passwordResetWindow = new PasswordResetWindow(kuhar);
             }
         });
     }
