@@ -74,8 +74,9 @@ public class LoginWindow extends JFrame implements ActionListener {
             // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
             kuhar = kuhar.getKuharForLogin(imeKuhara, prezimeKuhara, password);
             message.setText("Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno logovan!");
-            KuharWindow kuharWindow = new KuharWindow(kuhar);
+            // Ako su podaci ispravni idi na korisnicki prozor
             setVisible(false);
+            KuharWindow kuharWindow = new KuharWindow(kuhar);
         } catch (Exception e) {
             e.printStackTrace();
             message.setText("Korisnik ne postoji!");

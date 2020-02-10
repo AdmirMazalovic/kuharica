@@ -12,12 +12,13 @@ public class KuharWindow extends JFrame {
 
     JPanel kuharPanel;
     JButton snimiNovePodatkeButton;
+    JButton promijeniPassword;
 
     JLabel imeLabel, prezimeLabel, emailLabel, datumRodjenjaLabel, drzavaLabel, gradLabel,
             zipLabel, adresaLabel, brojTelefonaLabel, oMeniLabel;
 
     JTextField imeField, prezimeField, emailField, datumRodjenjaField,
-    drzavaField, gradField, zipField, adresaField, brojTelefonaField, oMeniField;
+            drzavaField, gradField, zipField, adresaField, brojTelefonaField, oMeniField;
 
     public KuharWindow(Kuhar kuhar) {
         imeLabel = new JLabel();
@@ -53,6 +54,7 @@ public class KuharWindow extends JFrame {
         oMeniField = new JTextField();
 
         snimiNovePodatkeButton = new JButton("Snimi");
+        promijeniPassword = new JButton("Promijeni password");
 
         kuharPanel = new JPanel(new GridLayout(11, 1));
         kuharPanel.add(imeLabel);
@@ -76,14 +78,57 @@ public class KuharWindow extends JFrame {
         kuharPanel.add(oMeniLabel);
         kuharPanel.add(oMeniField);
         kuharPanel.add(snimiNovePodatkeButton);
+        kuharPanel.add(promijeniPassword);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //snimiNovePodatkeButton.addActionListener(this);
         add(kuharPanel, BorderLayout.CENTER);
         setTitle("Moji podaci");
+        setSize(300, 300);
         setVisible(true);
 
+        // Prikazi kuharove informacije
+        showKuharInfo(kuhar);
+
+        snimiNovePodatkeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Želite li snimiti izmjenjene podatke", "Snimi nove podatke!", JOptionPane.YES_NO_CANCEL_OPTION);
+                if (result == 0) {
+                    // Pokupi tekst iz Fieldova i snimi nove podatke za kuhara
+                    kuhar.setIme(imeField.getText());
+                    kuhar.setPrezime(prezimeField.getText());
+                    kuhar.setEmail(emailField.getText());
+                    kuhar.setDatumRodjenja(Date.valueOf(datumRodjenjaField.getText()));
+                    kuhar.setGrad(gradField.getText());
+                    kuhar.setZip(Integer.parseInt(zipField.getText()));
+                    kuhar.setAdresa(adresaField.getText());
+                    kuhar.setBrojTelefona(brojTelefonaField.getText());
+                    kuhar.setOmeni(oMeniField.getText());
+                    kuhar.updateKuharInfo(kuhar);
+                } else if (result == 1) {
+                    showKuharInfo(kuhar);
+                }
+            }
+        });
+
+        promijeniPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    /**
+     * Helper metoda koja ispisuje informacije o kuharu
+     *
+     * @param kuhar
+     */
+    private void showKuharInfo(Kuhar kuhar) {
         imeField.setText(kuhar.getIme());
         prezimeField.setText(kuhar.getPrezime());
         emailField.setText(kuhar.getEmail());
@@ -94,33 +139,5 @@ public class KuharWindow extends JFrame {
         adresaField.setText(kuhar.getAdresa());
         brojTelefonaField.setText(kuhar.getBrojTelefona());
         oMeniField.setText(kuhar.getOmeni());
-
-        snimiNovePodatkeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Pokupi tekst iz Fieldova i snimi nove podatke za kuhara
-                kuhar.setIme(imeField.getText());
-                kuhar.setPrezime(prezimeField.getText());
-                kuhar.setEmail(emailField.getText());
-                kuhar.setDatumRodjenja(Date.valueOf(datumRodjenjaField.getText()));
-                kuhar.setGrad(gradField.getText());
-                kuhar.setZip(Integer.parseInt(zipField.getText()));
-                kuhar.setAdresa(adresaField.getText());
-                kuhar.setBrojTelefona(brojTelefonaField.getText());
-                kuhar.setOmeni(oMeniField.getText());
-                kuhar.updateKuharInfo(kuhar);
-
-//                imeField.setText(kuhar.getIme());
-//                prezimeField.setText(kuhar.getPrezime());
-//                emailField.setText(kuhar.getEmail());
-//                datumRodjenjaField.setText(kuhar.getDatumRodjenja().toString());
-//                drzavaField.setText(kuhar.getDrzava());
-//                gradField.setText(kuhar.getGrad());
-//                zipField.setText(kuhar.getZip().toString());
-//                adresaField.setText(kuhar.getAdresa());
-//                brojTelefonaField.setText(kuhar.getBrojTelefona());
-//                oMeniField.setText(kuhar.getOmeni());
-            }
-        });
     }
 }
