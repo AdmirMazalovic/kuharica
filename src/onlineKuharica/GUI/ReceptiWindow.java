@@ -1,9 +1,13 @@
 package onlineKuharica.GUI;
 
 import onlineKuharica.Jelo;
+import onlineKuharica.Kuhar;
+import onlineKuharica.Namirnica;
+import onlineKuharica.Recept;
 
 import javax.swing.*;
-import javax.swing.plaf.LabelUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +16,7 @@ import java.util.ArrayList;
 public class ReceptiWindow extends JFrame {
 
     ReceptiWindow() {
-
-        JLabel kratakOpisJela = new JLabel();
-
+        Color colorOldLace  = new Color(253,245,230);
 
         Jelo jelo = new Jelo();
         ArrayList<Jelo> jela = jelo.getAllJelo();
@@ -22,41 +24,131 @@ public class ReceptiWindow extends JFrame {
 
         JFrame receptiFrame = new JFrame();
 
-        JButton vidiReceptButton = new JButton("Vidi recept");
-        vidiReceptButton.setBounds(1100, 100, 140, 30);
-        DefaultListModel<String> lista = new DefaultListModel<>();
+        JButton vidiReceptButton = new JButton("Prikaži recept");
+        vidiReceptButton.setBounds(910, 160, 140, 30);
+        DefaultListModel<String> listaJela = new DefaultListModel<>();
         for (int i = 0; i < brojJela; i++) {
-                    lista.addElement(jela.get(i).getImeJela().toUpperCase() + " - " + jela.get(i).getOpisJela());
+            listaJela.addElement(jela.get(i).getImeJela().toUpperCase() + " - " + jela.get(i).getOpisJela());
         }
 
+        // scroll panel u koji ce biti dodana lista recepata
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(50, 50, 1000, 100);
+        scrollPane.setBackground(colorOldLace);
 
-        JList<String> listaRecepata = new JList<>(lista);
-        listaRecepata.setBounds(50, 50, 1000, 100);
-
-        receptiFrame.add(listaRecepata);
+        JList<String> listaRecepata = new JList<>(listaJela);
+        listaRecepata.setBackground(colorOldLace);
+      //  listaRecepata.setBounds(50, 50, 1000, 100);
+      //  listaRecepata.setBackground(colorOldLace);
+        scrollPane.setViewportView(listaRecepata);
+        receptiFrame.add(scrollPane);
+      //  receptiFrame.add(listaRecepata);
         receptiFrame.add(vidiReceptButton);
 
-        receptiFrame.setSize(1100, 450);
+        receptiFrame.setSize(1100, 800);
         receptiFrame.setLayout(null);
         receptiFrame.setVisible(true);
 
         JLabel imeJela = new JLabel();
         imeJela.setSize(1000, 100);
-        imeJela.setBackground(Color.WHITE);
+
+
+        imeJela.setBackground(colorOldLace);
         imeJela.setOpaque(true);
-        imeJela.setBounds(50, 160, 1000,50);
+        imeJela.setBounds(50, 200, 1000, 40);
         receptiFrame.add(imeJela);
         imeJela.setVisible(false);
+
+        DefaultTableModel model = new DefaultTableModel();
+        JTable prikazRecepta = new JTable(model);
+        prikazRecepta.setShowGrid(false);
+        prikazRecepta.setShowHorizontalLines(true);
+        prikazRecepta.setGridColor(colorOldLace);
+        model.addColumn("Col1");
+        model.addColumn("Col2");
+        int firstColumnWidth = 170;
+        int secondColumnWidth = 830;
+        prikazRecepta.getColumnModel().getColumn(0).setMaxWidth(firstColumnWidth);
+        DefaultTableCellRenderer firstColumnRender = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer secondColumnRender = new DefaultTableCellRenderer();
+
+        firstColumnRender.setBackground(colorOldLace);
+        firstColumnRender.setVerticalAlignment(JLabel.TOP);
+        secondColumnRender.setVerticalAlignment(JLabel.TOP);
+
+        prikazRecepta.getColumnModel().getColumn(0).setCellRenderer(firstColumnRender);
+        prikazRecepta.getColumnModel().getColumn(1).setMaxWidth(secondColumnWidth);
+        prikazRecepta.getColumnModel().getColumn(1).setCellRenderer(secondColumnRender);
+        //DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
+
+       // rightRender.setVerticalAlignment(JLabel.TOP);
+//        for (int columnIndex = 0; columnIndex < prikazRecepta.getColumnCount(); columnIndex++) {
+//            prikazRecepta.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRender);
+//        }
+
+
+        prikazRecepta.setSize(1000, 1000);
+        prikazRecepta.setBackground(Color.WHITE);
+        prikazRecepta.setOpaque(true);
+        prikazRecepta.setBounds(50, 245, 1000, 500);
+        receptiFrame.add(prikazRecepta);
+        prikazRecepta.setVisible(false);
 
         vidiReceptButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String data = "";
+                int numberOfrows = model.getRowCount();
+
+                // izbrisi podatke za prethodno ispisan recept
+                while (numberOfrows > 0) {
+                    model.removeRow(numberOfrows - 1);
+                    numberOfrows--;
+                }
+
+                // ispisi podatke za odabrani recept
                 if (listaRecepata.getSelectedIndex() != -1) {
                     data = "Recept za jelo: " + listaRecepata.getSelectedValue();
                     imeJela.setText(data);
                     imeJela.setVisible(true);
+
+                    int jeloIndex = listaRecepata.getSelectedIndex();
+                    Jelo jeloZaRecept = jela.get(jeloIndex);
+
+                    Recept recept = new Recept();
+                    recept = recept.getReceptByJeloId(jeloZaRecept.getJeloId());
+                    Kuhar autorJela = new Kuhar();
+                    autorJela = autorJela.getKuharById(jeloZaRecept.getKuharId());
+                    Namirnica namirnica = new Namirnica();
+                    ArrayList<Namirnica> namirnice = namirnica.getNamirniceByJeloIdDB(jeloZaRecept.getJeloId());
+
+                    model.addRow(new Object[]{"Autor jela: ", autorJela.getIme() + " " + autorJela.getPrezime()});
+                    model.addRow(new Object[]{"Trajanje pripreme: ", jeloZaRecept.getTrajanjePripreme()});
+                    model.addRow(new Object[]{"Broj osoba: ", jeloZaRecept.getBrojOsoba()});
+                    model.addRow(new Object[]{"Tezina pripreme: ", jeloZaRecept.getTezinaPripreme()});
+                    model.addRow(new Object[]{"Datum objave: ", recept.getDatumObjave()});
+                    model.addRow(new Object[]{"", ""});
+
+                   // namirnice.forEach(it -> it.getImeNamirnice());
+                    String sastojci = "<html><p>";
+                    for (Namirnica it : namirnice) {
+                        sastojci = sastojci + it.getKolicina() + " " + it.getMjernaJedinica() + " " +it.getImeNamirnice() +"<br>";
+                    }
+                    sastojci = sastojci + "</p></html>";
+
+                    model.addRow(new Object[]{"Sastojci:", sastojci});
+                    model.addRow(new Object[]{"Opis pripreme:", "<html>" + recept.getOpisPipreme() + "</html>"});
+                    prikazRecepta.setRowHeight(7, 200);
+                    prikazRecepta.setRowHeight(6, 200);
+
+
+                    prikazRecepta.setVisible(true);
+
+
+//                    prikazRecepta.setText("Trajanje pripreme: " + jeloZaRecept.getTrajanjePripreme());
+//                    prikazRecepta.setText("Broj osoba: " + jeloZaRecept.getBrojOsoba());
+                    //prikazRecepta.add
+
                 }
-               // imeJela.setText(data);
             }
         });
     }

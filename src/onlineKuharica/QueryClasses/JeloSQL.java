@@ -123,7 +123,7 @@ public class JeloSQL extends Connector {
         jelo.setImeJela(rs.getString("ime_jela"));
         jelo.setKuhinjaId(rs.getInt("kuhinja_id"));
         jelo.setVrstaJelaId(rs.getInt("vrsta_jela_id"));
-        jelo.setTezinaPripreme(rs.getInt("tezina_pripreme"));
+        jelo.setTezinaPripreme(rs.getString("tezina_pripreme"));
         jelo.setTrajanjePripreme(rs.getString("trajanje_pripreme"));
         jelo.setBrojOsoba(rs.getInt("broj_osoba"));
         jelo.setOpisJela(rs.getString("opis_jela"));

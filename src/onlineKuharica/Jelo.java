@@ -10,12 +10,12 @@ public class Jelo extends JeloSQL{
     private String imeJela;
     private Integer kuhinjaId;
     private Integer vrstaJelaId;
-    private Integer tezinaPripreme;
+    private String tezinaPripreme;
     private String trajanjePripreme;
     private Integer brojOsoba;
     private String opisJela;
 
-    public Jelo(Integer kuharId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, Integer tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
+    public Jelo(Integer kuharId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, String tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
         this.kuharId = kuharId;
         this.imeJela = imeJela;
         this.kuhinjaId = kuhinjaId;
@@ -69,11 +69,11 @@ public class Jelo extends JeloSQL{
         this.vrstaJelaId = vrstaJelaId;
     }
 
-    public Integer getTezinaPripreme() {
+    public String getTezinaPripreme() {
         return tezinaPripreme;
     }
 
-    public void setTezinaPripreme(Integer tezinaPripreme) {
+    public void setTezinaPripreme(String tezinaPripreme) {
         this.tezinaPripreme = tezinaPripreme;
     }
 

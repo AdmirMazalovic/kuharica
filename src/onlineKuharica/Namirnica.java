@@ -59,7 +59,7 @@ public class Namirnica extends NamirnicaSQL {
      * @param jeloId - id jela za kojeg dohvatamo namirnice iz baze
      * @return - array lista svih namirnica potrebnih za pripremu jela
      */
-    public ArrayList<Namirnica> getNamirniceByJeloIdDB(Integer jeloId){
+    public ArrayList<Namirnica> getNamirniceByJeloId(Integer jeloId){
         NamirnicaSQL namirnicaSQL = new NamirnicaSQL();
         return namirnicaSQL.getNamirniceByJeloIdDB(jeloId);
     }
