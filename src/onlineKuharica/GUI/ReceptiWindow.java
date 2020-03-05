@@ -5,17 +5,21 @@ import onlineKuharica.Kuhar;
 import onlineKuharica.Namirnica;
 import onlineKuharica.Recept;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReceptiWindow extends JFrame {
-
-    ReceptiWindow() {
+    private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto2.jpg"));
+    ReceptiWindow() throws IOException {
         Color colorOldLace  = new Color(253,245,230);
 
         Jelo jelo = new Jelo();
@@ -23,6 +27,8 @@ public class ReceptiWindow extends JFrame {
         int brojJela = jela.size();
 
         JFrame receptiFrame = new JFrame();
+        receptiFrame.setContentPane(new ImagePanel(backgroundImage));
+
 
         JButton vidiReceptButton = new JButton("Prikaži recept");
         vidiReceptButton.setBounds(910, 160, 140, 30);
@@ -45,8 +51,12 @@ public class ReceptiWindow extends JFrame {
       //  receptiFrame.add(listaRecepata);
         receptiFrame.add(vidiReceptButton);
 
-        receptiFrame.setSize(1100, 800);
+        receptiFrame.setSize(1200, 800);
         receptiFrame.setLayout(null);
+
+        // Postavi receptiFrame na sredinu displaya pri prikazu
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        receptiFrame.setLocation(dim.width/2-receptiFrame.getSize().width/2, dim.height/2-receptiFrame.getSize().height/2);
         receptiFrame.setVisible(true);
 
         JLabel imeJela = new JLabel();
@@ -154,7 +164,8 @@ public class ReceptiWindow extends JFrame {
     }
 
 
-    public static void main(String args[]) {
+
+    public static void main(String args[]) throws IOException {
         new ReceptiWindow();
     }
 

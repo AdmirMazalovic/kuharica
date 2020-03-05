@@ -1,16 +1,28 @@
 package onlineKuharica.GUI;
 
+import onlineKuharica.Kuhar;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class WelcomeScreen extends JComponent {
+    private static Kuhar kuhar;
+
+    public static Kuhar getKuhar() {
+        return kuhar;
+    }
+
+    //LoginWindow loginWindow = new LoginWindow();
     private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto.jpg"));
 
-    private WelcomeScreen() throws IOException {
+    WelcomeScreen(Kuhar kuhar) throws IOException {
+        this.kuhar = kuhar;
         JFrame welcomeScreenFrame = new JFrame();
         welcomeScreenFrame.setSize(1200, 800);
         welcomeScreenFrame.setContentPane(new ImagePanel(backgroundImage));
@@ -28,23 +40,36 @@ public class WelcomeScreen extends JComponent {
 //            System.out.println(ex);
 //        }
 
-
         welcomeScreenFrame.add(traziReceptButton);
         welcomeScreenFrame.add(dodajReceptButton);
         welcomeScreenFrame.add(mojProfilButton);
 
-
-//        JLabel welcomeScreenText= new JLabel("Online kuharica text");
-//        welcomeScreenText.setText("<html> <font size=\"60\" color=\"white\"> Moja kuharica");
-//        welcomeScreenText.setBounds(480, 500, 800, 80);
-//        welcomeScreenFrame.add(welcomeScreenText);
-
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        welcomeScreenFrame.setLocation(dim.width/2-welcomeScreenFrame.getSize().width/2, dim.height/2-welcomeScreenFrame.getSize().height/2);
 
         welcomeScreenFrame.setVisible(true);
+
+        traziReceptButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ReceptiWindow receptiWindow = new ReceptiWindow();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        mojProfilButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KuharWindow kuharWindow = new KuharWindow(kuhar);
+            }
+        });
     }
 
 
     public static void main(String[] args) throws IOException {
-        new WelcomeScreen();
+        new WelcomeScreen(WelcomeScreen.getKuhar());
     }
 }

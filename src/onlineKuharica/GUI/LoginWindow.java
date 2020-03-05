@@ -8,7 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame implements ActionListener {
-
+    Kuhar kuhar = new Kuhar();
+    String imeKuhara = "";
+    String prezimeKuhara = "";
+    String password = "";
     // Login panel
     JPanel loginPanel;
 
@@ -19,6 +22,9 @@ public class LoginWindow extends JFrame implements ActionListener {
     JPasswordField passwordField;
     JButton loginButton, cancel;
 
+    public Kuhar getLoginKuhar(){
+        return this.kuhar;
+    }
     public LoginWindow() {
         // Labeli
         imeLabel = new JLabel();
@@ -55,6 +61,10 @@ public class LoginWindow extends JFrame implements ActionListener {
         add(loginPanel, BorderLayout.CENTER);
         setTitle("Login in u Online Kuharica");
         setSize(350, 150);
+
+        // Pozicioniraj login panel na centar displaya
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setVisible(true);
 
     }
@@ -65,10 +75,9 @@ public class LoginWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        String imeKuhara = imeField.getText();
-        String prezimeKuhara = prezimeField.getText();
-        String password = passwordField.getText();
-        Kuhar kuhar = new Kuhar();
+        imeKuhara = imeField.getText();
+        prezimeKuhara = prezimeField.getText();
+        password = passwordField.getText();
         try {
             // Dohvati kuhara iz baze po imenu, prezimenu i passwordu. U slucaju da nema takvog kuhara,
             // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
@@ -76,7 +85,8 @@ public class LoginWindow extends JFrame implements ActionListener {
             message.setText("Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno logovan!");
             // Ako su podaci ispravni idi na korisnicki prozor
             setVisible(false);
-            KuharWindow kuharWindow = new KuharWindow(kuhar);
+           // KuharWindow kuharWindow = new KuharWindow(kuhar);
+            WelcomeScreen welcomeScreen = new WelcomeScreen(kuhar);
         } catch (Exception e) {
             e.printStackTrace();
             message.setText("Korisnik ne postoji!");
