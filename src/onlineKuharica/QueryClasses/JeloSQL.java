@@ -3,6 +3,7 @@ package onlineKuharica.QueryClasses;
 import onlineKuharica.Jelo;
 
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 public class JeloSQL extends Connector {
@@ -11,7 +12,8 @@ public class JeloSQL extends Connector {
     String sqlGetJeloByKuhinjaId = "SELECT * FROM `online_kuharica`.`jelo` WHERE `jelo`.`kuhinja_id` = ?";
     String sqlGetJeloByTezinaPripreme = "SELECT * FROM `online_kuharica`.`jelo` WHERE `jelo`.`tezina_pripreme` = ?";
     String sqlDeleteJeloById = "DELETE FROM `online_kuharica`.`jelo` WHERE `jelo`.`jelo_id` = ?";
-
+    String sqlAddJelo = "INSERT INTO `online_kuharica`.`jelo` (`jelo_id`, `kuhar_id`, `ime_jela`, `kuhinja_id`, `vrsta_jela_id`, `tezina_pripreme`, `trajanje_pripreme`, `broj_osoba`, `opis_jela`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String sqlGetJeloByNameAndKuharId = "SELECT * FROM `online_kuharica`.`jelo` WHERE `jelo`.`kuhar_id` = ? AND `jelo`.`ime_jela` = ?";
 
     /**
      * Vraca sva jelo od kuhara
@@ -110,6 +112,57 @@ public class JeloSQL extends Connector {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    /**
+     * Dodaj jelo u bazu
+     * @param jelo
+     */
+    public void addJeloDB(Jelo jelo){
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlAddJelo);
+            prpStmt.setNull(1, Types.INTEGER);
+            prpStmt.setInt(2, jelo.getKuharId());
+            prpStmt.setString(3, jelo.getImeJela());
+            prpStmt.setInt(4, jelo.getKuhinjaId());
+            prpStmt.setInt(5, jelo.getVrstaJelaId());
+            prpStmt.setString(6, jelo.getTezinaPripreme());
+            prpStmt.setString(7, jelo.getTrajanjePripreme());
+            prpStmt.setInt(8, jelo.getBrojOsoba());
+            prpStmt.setString(9, jelo.getOpisJela());
+            prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Dohvati jelo iz baze po imenu i kuhar id-u
+     * @param imeJela - ime jela koje se dohavata
+     * @param kuharId - kuhar id koji je dodao/napisao recept za jelo
+     * @return - jelo
+     */
+    public Jelo getJeloByNameAndKuharIdDB(String imeJela, Integer kuharId){
+        Jelo jelo = new Jelo();
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlGetJeloByNameAndKuharId);
+            prpStmt.setInt(1, kuharId);
+            prpStmt.setString(2, imeJela);
+            rs = prpStmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()) {
+                setJeloObjectFromResponse(jelo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        closeConnectionSQL();
+        return jelo;
     }
 
     /**

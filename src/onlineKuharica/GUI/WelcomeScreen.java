@@ -64,6 +64,7 @@ public class WelcomeScreen extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 KuharWindow kuharWindow = new KuharWindow(kuhar);
+            //    RegisterWindow registerWindow = new RegisterWindow();
             }
         });
     }

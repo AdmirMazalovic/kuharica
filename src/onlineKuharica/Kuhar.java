@@ -4,6 +4,7 @@ import onlineKuharica.QueryClasses.KuharSQL;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Kuhar extends KuharSQL implements Serializable {

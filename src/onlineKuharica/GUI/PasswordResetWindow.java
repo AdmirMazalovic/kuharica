@@ -32,6 +32,9 @@ public class PasswordResetWindow extends JFrame {
         passwordEditPanel.add(snimiButton);
 
         add(passwordEditPanel, BorderLayout.CENTER);
+        Integer kuharWindowSize = 400;
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(dim.width/2-this.getSize().width/2 + kuharWindowSize/2, dim.height/2-this.getSize().height/2);
         setTitle("Promijeni password");
         setSize(400, 200);
         setVisible(true);

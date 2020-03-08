@@ -9,13 +9,14 @@ public class Recept extends ReceptSQL {
     private Date datumObjave;
     private String opisPipreme;
 
-    public Recept(Integer jeloId, Date datumObjave, String opisPipreme) {
+    public Recept(Integer jeloId, String opisPipreme) {
         this.jeloId = jeloId;
-        this.datumObjave = datumObjave;
+        this.datumObjave = null;
         this.opisPipreme = opisPipreme;
     }
 
     public Recept() {
+        datumObjave = null;
     }
 
     public Integer getJeloId() {
@@ -50,5 +51,14 @@ public class Recept extends ReceptSQL {
     public Recept getReceptByJeloId(Integer jeloId){
         ReceptSQL receptSQL = new ReceptSQL();
         return receptSQL.getReceptByJeloIdDB(jeloId);
+    }
+
+    /**
+     * Dodaj recept u DB
+     * @param recept
+     */
+    public void addRecept(Recept recept){
+        ReceptSQL receptSQL = new ReceptSQL();
+        receptSQL.addReceptDB(recept);
     }
 }

@@ -80,13 +80,17 @@ public class KuharWindow extends JFrame {
         kuharPanel.add(snimiNovePodatkeButton);
         kuharPanel.add(promijeniPassword);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //snimiNovePodatkeButton.addActionListener(this);
         add(kuharPanel, BorderLayout.CENTER);
         setTitle("Moji podaci");
-        setSize(300, 300);
+        setSize(400, 450);
         setVisible(true);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
 
         // Prikazi kuharove informacije
         showKuharInfo(kuhar);

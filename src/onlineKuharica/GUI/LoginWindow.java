@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginWindow extends JFrame implements ActionListener {
+public class LoginWindow extends JFrame {
     Kuhar kuhar = new Kuhar();
     String imeKuhara = "";
     String prezimeKuhara = "";
@@ -20,7 +20,7 @@ public class LoginWindow extends JFrame implements ActionListener {
     JTextField imeField;
     JTextField prezimeField;
     JPasswordField passwordField;
-    JButton loginButton, cancel;
+    JButton loginButton, registerButton;
 
     public Kuhar getLoginKuhar(){
         return this.kuhar;
@@ -40,9 +40,10 @@ public class LoginWindow extends JFrame implements ActionListener {
         passwordField = new JPasswordField();
 
         // Login dugme
-        loginButton = new JButton("Login");
+        loginButton = new JButton("Prijavi se");
+        registerButton = new JButton("Registriraj se");
 
-        loginPanel = new JPanel(new GridLayout(4, 1));
+        loginPanel = new JPanel(new GridLayout(5, 1));
         loginPanel.add(imeLabel);
         loginPanel.add(imeField);
         loginPanel.add(prezimeLabel);
@@ -51,16 +52,49 @@ public class LoginWindow extends JFrame implements ActionListener {
         loginPanel.add(passwordField);
 
         message = new JLabel();
-        loginPanel.add(message);
+        loginPanel.add(registerButton);
         loginPanel.add(loginButton);
+        loginPanel.add(message);
+        message.setText("Postani naš kuhar!");
+
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding the listeners to components
-        loginButton.addActionListener(this);
+        loginButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                imeKuhara = imeField.getText();
+                prezimeKuhara = prezimeField.getText();
+                password = passwordField.getText();
+                try {
+                    // Dohvati kuhara iz baze po imenu, prezimenu i passwordu. U slucaju da nema takvog kuhara,
+                    // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
+                    kuhar = kuhar.getKuharForLogin(imeKuhara, prezimeKuhara, password);
+                    message.setText("\"<html><p><font color=\"green\"> Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno prijavljen!</html></p>");
+                    // Ako su podaci ispravni idi na korisnicki prozor
+                    setVisible(false);
+                    // KuharWindow kuharWindow = new KuharWindow(kuhar);
+                    WelcomeScreen welcomeScreen = new WelcomeScreen(kuhar);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    message.setText("<html><p><font color=\"red\">Korisnik ne postoji!</html></p>");
+                }
+
+            }
+        });
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegisterWindow registerWindow = new RegisterWindow();
+            }
+        });
+
         add(loginPanel, BorderLayout.CENTER);
-        setTitle("Login in u Online Kuharica");
-        setSize(350, 150);
+        setTitle("Prijavi se u kuharicu");
+        setSize(350, 200);
 
         // Pozicioniraj login panel na centar displaya
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -72,24 +106,24 @@ public class LoginWindow extends JFrame implements ActionListener {
     public static void main(String[] args) {
         new LoginWindow();
     }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        imeKuhara = imeField.getText();
-        prezimeKuhara = prezimeField.getText();
-        password = passwordField.getText();
-        try {
-            // Dohvati kuhara iz baze po imenu, prezimenu i passwordu. U slucaju da nema takvog kuhara,
-            // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
-            kuhar = kuhar.getKuharForLogin(imeKuhara, prezimeKuhara, password);
-            message.setText("Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno logovan!");
-            // Ako su podaci ispravni idi na korisnicki prozor
-            setVisible(false);
-           // KuharWindow kuharWindow = new KuharWindow(kuhar);
-            WelcomeScreen welcomeScreen = new WelcomeScreen(kuhar);
-        } catch (Exception e) {
-            e.printStackTrace();
-            message.setText("Korisnik ne postoji!");
-        }
-    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent ae) {
+//        imeKuhara = imeField.getText();
+//        prezimeKuhara = prezimeField.getText();
+//        password = passwordField.getText();
+//        try {
+//            // Dohvati kuhara iz baze po imenu, prezimenu i passwordu. U slucaju da nema takvog kuhara,
+//            // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
+//            kuhar = kuhar.getKuharForLogin(imeKuhara, prezimeKuhara, password);
+//            message.setText("Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno logovan!");
+//            // Ako su podaci ispravni idi na korisnicki prozor
+//            setVisible(false);
+//           // KuharWindow kuharWindow = new KuharWindow(kuhar);
+//            WelcomeScreen welcomeScreen = new WelcomeScreen(kuhar);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            message.setText("Korisnik ne postoji!");
+//        }
+//    }
 }

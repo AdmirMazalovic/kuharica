@@ -5,7 +5,7 @@ import onlineKuharica.QueryClasses.JeloSQL;
 import java.util.ArrayList;
 
 public class Jelo extends JeloSQL{
-    private Integer jeloId;
+    private Integer jeloId = null;
     private Integer kuharId;
     private String imeJela;
     private Integer kuhinjaId;
@@ -140,6 +140,26 @@ public class Jelo extends JeloSQL{
     public int deleteJelo(Integer jeloId){
         JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.deleteJeloDB(jeloId);
+    }
+
+    /**
+     * Dodaj novo jelo u bazu
+     * @param jelo
+     */
+    public void addJelo(Jelo jelo){
+        JeloSQL jeloSQL = new JeloSQL();
+        jeloSQL.addJeloDB(jelo);
+    }
+
+    /**
+     * Dohavati jelo iz DB za jelo sa [imeJela] od kuhara sa [kuharId]
+     * @param imeJela
+     * @param kuharId
+     * @return
+     */
+    public Jelo getJeloByNameAndKuharId(String imeJela, Integer kuharId){
+        JeloSQL jeloSQL = new JeloSQL();
+        return jeloSQL.getJeloByNameAndKuharIdDB(imeJela, kuharId);
     }
 }
 

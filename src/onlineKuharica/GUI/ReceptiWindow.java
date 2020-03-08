@@ -29,7 +29,6 @@ public class ReceptiWindow extends JFrame {
         JFrame receptiFrame = new JFrame();
         receptiFrame.setContentPane(new ImagePanel(backgroundImage));
 
-
         JButton vidiReceptButton = new JButton("Prikaži recept");
         vidiReceptButton.setBounds(910, 160, 140, 30);
         DefaultListModel<String> listaJela = new DefaultListModel<>();
@@ -62,7 +61,6 @@ public class ReceptiWindow extends JFrame {
         JLabel imeJela = new JLabel();
         imeJela.setSize(1000, 100);
 
-
         imeJela.setBackground(colorOldLace);
         imeJela.setOpaque(true);
         imeJela.setBounds(50, 200, 1000, 40);
@@ -89,13 +87,6 @@ public class ReceptiWindow extends JFrame {
         prikazRecepta.getColumnModel().getColumn(0).setCellRenderer(firstColumnRender);
         prikazRecepta.getColumnModel().getColumn(1).setMaxWidth(secondColumnWidth);
         prikazRecepta.getColumnModel().getColumn(1).setCellRenderer(secondColumnRender);
-        //DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
-
-       // rightRender.setVerticalAlignment(JLabel.TOP);
-//        for (int columnIndex = 0; columnIndex < prikazRecepta.getColumnCount(); columnIndex++) {
-//            prikazRecepta.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRender);
-//        }
-
 
         prikazRecepta.setSize(1000, 1000);
         prikazRecepta.setBackground(Color.WHITE);
@@ -138,7 +129,6 @@ public class ReceptiWindow extends JFrame {
                     model.addRow(new Object[]{"Datum objave: ", recept.getDatumObjave()});
                     model.addRow(new Object[]{"", ""});
 
-                   // namirnice.forEach(it -> it.getImeNamirnice());
                     String sastojci = "<html><p>";
                     for (Namirnica it : namirnice) {
                         sastojci = sastojci + it.getKolicina() + " " + it.getMjernaJedinica() + " " +it.getImeNamirnice() +"<br>";
@@ -150,20 +140,11 @@ public class ReceptiWindow extends JFrame {
                     prikazRecepta.setRowHeight(7, 200);
                     prikazRecepta.setRowHeight(6, 200);
 
-
                     prikazRecepta.setVisible(true);
-
-
-//                    prikazRecepta.setText("Trajanje pripreme: " + jeloZaRecept.getTrajanjePripreme());
-//                    prikazRecepta.setText("Broj osoba: " + jeloZaRecept.getBrojOsoba());
-                    //prikazRecepta.add
-
                 }
             }
         });
     }
-
-
 
     public static void main(String args[]) throws IOException {
         new ReceptiWindow();

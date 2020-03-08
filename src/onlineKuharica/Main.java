@@ -2,6 +2,9 @@ package onlineKuharica;
 
 import onlineKuharica.GUI.LoginWindow;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
 //
@@ -24,6 +27,13 @@ public class Main {
 //        f.setSize(400,400);
 //        f.setLayout(null);
 //        f.setVisible(true);
-        LoginWindow login = new LoginWindow();
+        Jelo jelo = new Jelo(2, "Test", 2, 2, TezinaPripreme.LAKO.getTezinaPripeme(), "1:00", 4, "Opis jela");
+        jelo.addJelo(jelo);
+        Jelo jelo1 = jelo.getJeloByNameAndKuharId(jelo.getImeJela(), jelo.getKuharId());
+        Recept recept = new Recept(jelo1.getJeloId(), "Opis");
+        recept.addRecept(recept);
+        Namirnica namirnica = new Namirnica(jelo1.getJeloId(), 2,"Namirnica za jelo", MjernaJedinica.KILOGRAM.toString(), (long)1.00);
+        namirnica.addNamirnica(namirnica, 1);
+      //  LoginWindow login = new LoginWindow();
     }
 }

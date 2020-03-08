@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 public class ReceptSQL extends Connector {
     String sqlGetReceptByJeloId = "SELECT * FROM `online_kuharica`.`recept` WHERE `recept`.`jelo_id` = ?";
+    String sqlAddRecept = "INSERT INTO `online_kuharica`.`recept` (`jelo_id`, `datum_objave`, `opis_pripreme`) VALUES (?, NOW(), ?)";
 
     /**
      * Dohvata recept od jela sa jelo id-om
@@ -31,6 +32,22 @@ public class ReceptSQL extends Connector {
             e.printStackTrace();
         }
         return recept;
+    }
+
+    /**
+     * Dodaj novi recept
+     * @param recept
+     */
+    public void addReceptDB(Recept recept){
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlAddRecept);
+            prpStmt.setInt(1, recept.getJeloId());
+            prpStmt.setString(2, recept.getOpisPipreme());
+            prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
