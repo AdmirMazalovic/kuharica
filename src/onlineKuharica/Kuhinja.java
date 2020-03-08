@@ -1,6 +1,10 @@
 package onlineKuharica;
 
-public class Kuhinja {
+import onlineKuharica.QueryClasses.KuhinjaSQL;
+
+import java.util.ArrayList;
+
+public class Kuhinja extends KuhinjaSQL {
     private Integer kuhinjaId;
     private String imeKuhinje;
     private String opisKuhinje;
@@ -36,5 +40,14 @@ public class Kuhinja {
 
     public void setOpisKuhinje(String opisKuhinje) {
         this.opisKuhinje = opisKuhinje;
+    }
+
+    /**
+     * Dohvati sve vrste kuhinja iz DB
+     * @return
+     */
+    public ArrayList<Kuhinja> getAllKuhinja(){
+        KuhinjaSQL kuhinjaSQL = new KuhinjaSQL();
+        return kuhinjaSQL.getAllKuhinjaDB();
     }
 }

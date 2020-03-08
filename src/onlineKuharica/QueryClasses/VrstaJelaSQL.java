@@ -5,9 +5,10 @@ import onlineKuharica.VrstaJela;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 
 public class VrstaJelaSQL extends Connector {
-   // ResultSet rs = null;
+    String sqlGetAllVrstaJela = "SELECT * FROM `online_kuharica`.`vrsta_jela`";
     String sqlGetVrstaJelaById = "SELECT `vrsta_jela`, `vrsta_jela_id` FROM `online_kuharica`.`vrsta_jela` WHERE `vrsta_jela_id` = ?";
     String sqlGetVrstaJelaByName = "SELECT `vrsta_jela`, `vrsta_jela_id` FROM `online_kuharica`.`vrsta_jela` WHERE `vrsta_jela` = ?";
     String sqlAddVrstaJela = "INSERT INTO `online_kuharica`.`vrsta_jela` (`vrsta_jela_id`, `vrsta_jela`) VALUES (?, ?)";
@@ -87,5 +88,41 @@ public class VrstaJelaSQL extends Connector {
         }
         closeConnectionSQL();
         return novaVrstaJela;
+    }
+
+    /**
+     * Dohvati sve vrste jela iz DB
+     * @return
+     */
+    public ArrayList<VrstaJela> getAllVrstaJelaDB(){
+        connectToDatabase();
+        ArrayList<VrstaJela> vrsteJela = new ArrayList<>();
+        try {
+            prpStmt = conn.prepareStatement(sqlGetAllVrstaJela);
+            rs = prpStmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()){
+                VrstaJela vrstaJela = new VrstaJela();
+                setVrstaJelaObjectFromResponse(vrstaJela);
+                vrsteJela.add(vrstaJela);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vrsteJela;
+    }
+
+
+    /**
+     * Helper funkcija (object mapper) za setovanje polja u objektu vrstaJela koji se dobije iz ResultSet objekta
+     * @param vrstaJela
+     * @throws SQLException
+     */
+    private void setVrstaJelaObjectFromResponse(VrstaJela vrstaJela) throws SQLException{
+        vrstaJela.setVrsta_jela_id(rs.getInt("vrsta_jela_id"));
+        vrstaJela.setVrsta_jela(rs.getString("vrsta_jela"));
     }
 }

@@ -206,7 +206,7 @@ public class KuharSQL extends Connector {
      */
     public ArrayList<Kuhar> getAllKuharDB() {
         connectToDatabase();
-        ArrayList<Kuhar> Kuhari = new ArrayList<>();
+        ArrayList<Kuhar> kuhari = new ArrayList<>();
         try {
             prpStmt = conn.prepareStatement(sqlGetAllKuhar);
             rs = prpStmt.executeQuery();
@@ -217,12 +217,12 @@ public class KuharSQL extends Connector {
             while (rs.next()) {
                 Kuhar kuhar = new Kuhar();
                 setKuharObjectFromResponse(kuhar);
-                Kuhari.add(kuhar);
+                kuhari.add(kuhar);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Kuhari;
+        return kuhari;
     }
 
     /**

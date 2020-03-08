@@ -4,7 +4,6 @@ import onlineKuharica.Jelo;
 import onlineKuharica.Kuhar;
 import onlineKuharica.Namirnica;
 import onlineKuharica.Recept;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -43,11 +42,8 @@ public class ReceptiWindow extends JFrame {
 
         JList<String> listaRecepata = new JList<>(listaJela);
         listaRecepata.setBackground(colorOldLace);
-      //  listaRecepata.setBounds(50, 50, 1000, 100);
-      //  listaRecepata.setBackground(colorOldLace);
         scrollPane.setViewportView(listaRecepata);
         receptiFrame.add(scrollPane);
-      //  receptiFrame.add(listaRecepata);
         receptiFrame.add(vidiReceptButton);
 
         receptiFrame.setSize(1200, 800);

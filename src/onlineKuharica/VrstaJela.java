@@ -2,6 +2,9 @@ package onlineKuharica;
 
 import onlineKuharica.QueryClasses.VrstaJelaSQL;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class VrstaJela extends VrstaJelaSQL {
     private int vrsta_jela_id;
     private String vrsta_jela;
@@ -48,5 +51,14 @@ public class VrstaJela extends VrstaJelaSQL {
     public VrstaJela addVrstaJela(VrstaJela vrstaJela){
         VrstaJelaSQL novaVrstaJela = new VrstaJelaSQL();
         return novaVrstaJela.addVrstaJelaDB(vrstaJela);
+    }
+
+    /**
+     * Dohvati sve vrste jela iz DB
+     * @return
+     */
+    public ArrayList<VrstaJela> getAllVrstaJela(){
+        VrstaJelaSQL vrstaJelaSQL = new VrstaJelaSQL();
+        return vrstaJelaSQL.getAllVrstaJelaDB();
     }
 }

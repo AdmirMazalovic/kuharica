@@ -3,7 +3,7 @@ package onlineKuharica;
 public enum TezinaPripreme {
     LAKO("Lako"),
     SREDNJE("Srednje"),
-    TESKO("Tesko")
+    TESKO("Teško")
     ;
 
     private final String tezina;
