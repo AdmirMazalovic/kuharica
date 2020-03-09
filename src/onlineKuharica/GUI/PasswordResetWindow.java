@@ -9,20 +9,17 @@ import java.awt.event.ActionListener;
 
 
 public class PasswordResetWindow extends JFrame {
-    JPanel passwordEditPanel;
-    JButton snimiButton;
-    JPasswordField stariPasswordField, noviPasswordField, potvrdiNoviPasswordField;
-    JLabel stariPasswordLabel, noviPasswordLabel, potvrdiNoviPasswordLabel;
+    private JPasswordField stariPasswordField, noviPasswordField, potvrdiNoviPasswordField;
 
     public PasswordResetWindow(Kuhar kuhar) {
-        passwordEditPanel = new JPanel(new GridLayout(4, 1));
-        snimiButton = new JButton("Snimi");
+        JPanel passwordEditPanel = new JPanel(new GridLayout(4, 1));
+        JButton snimiButton = new JButton("Snimi");
         stariPasswordField = new JPasswordField();
         potvrdiNoviPasswordField = new JPasswordField();
         noviPasswordField = new JPasswordField();
-        stariPasswordLabel = new JLabel("Unesite trenutni password:");
-        noviPasswordLabel = new JLabel("Novi password:");
-        potvrdiNoviPasswordLabel = new JLabel("Potvrdite novi password:");
+        JLabel stariPasswordLabel = new JLabel("Unesite trenutni password:");
+        JLabel noviPasswordLabel = new JLabel("Novi password:");
+        JLabel potvrdiNoviPasswordLabel = new JLabel("Potvrdite novi password:");
         passwordEditPanel.add(stariPasswordLabel);
         passwordEditPanel.add(stariPasswordField);
         passwordEditPanel.add(noviPasswordLabel);

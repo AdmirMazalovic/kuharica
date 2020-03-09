@@ -2,7 +2,6 @@ package onlineKuharica;
 
 import onlineKuharica.QueryClasses.VrstaJelaSQL;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class VrstaJela extends VrstaJelaSQL {

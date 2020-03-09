@@ -8,32 +8,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 
-public class RegisterWindow extends JFrame {
-    private JPanel registerPanel;
-    private JButton snimiNovePodatkeButton;
-    //private JButton promijeniPassword;
-    private JLabel imeLabel, prezimeLabel, emailLabel, datumRodjenjaLabel, drzavaLabel, gradLabel, spolLabel,
-            zipLabel, adresaLabel, brojTelefonaLabel, oMeniLabel, passwordLabel, potvrdiPasswordLabel;
-    private JTextField imeField, prezimeField, emailField, datumRodjenjaField, spolField,
-            drzavaField, gradField, zipField, adresaField, brojTelefonaField, oMeniField, passwordField, potvrdiPasswordField;
+class RegisterWindow extends JFrame {
+    private JTextField imeField;
+    private JTextField prezimeField;
+    private JTextField emailField;
+    private JTextField datumRodjenjaField;
+    private JTextField spolField;
+    private JTextField drzavaField;
+    private JTextField gradField;
+    private JTextField zipField;
+    private JTextField adresaField;
+    private JTextField brojTelefonaField;
+    private JTextField oMeniField;
+    private JTextField passwordField;
 
-
-    public RegisterWindow() {
-        this.imeLabel = new JLabel();
-        prezimeLabel = new JLabel();
-        emailLabel = new JLabel();
-        datumRodjenjaLabel = new JLabel();
-        passwordLabel = new JLabel();
-        potvrdiPasswordLabel = new JLabel();
-        spolLabel = new JLabel();
-        drzavaLabel = new JLabel();
-        gradLabel = new JLabel();
-        zipLabel = new JLabel();
-        adresaLabel = new JLabel();
-        brojTelefonaLabel = new JLabel();
-        oMeniLabel = new JLabel();
+    RegisterWindow() {
+        //private JButton promijeniPassword;
+        JLabel imeLabel = new JLabel();
+        JLabel prezimeLabel = new JLabel();
+        JLabel emailLabel = new JLabel();
+        JLabel datumRodjenjaLabel = new JLabel();
+        JLabel passwordLabel = new JLabel();
+        JLabel potvrdiPasswordLabel = new JLabel();
+        JLabel spolLabel = new JLabel();
+        JLabel drzavaLabel = new JLabel();
+        JLabel gradLabel = new JLabel();
+        JLabel zipLabel = new JLabel();
+        JLabel adresaLabel = new JLabel();
+        JLabel brojTelefonaLabel = new JLabel();
+        JLabel oMeniLabel = new JLabel();
 
         imeLabel.setText("Ime:");
         prezimeLabel.setText("Prezime:");
@@ -60,13 +64,13 @@ public class RegisterWindow extends JFrame {
         brojTelefonaField = new JTextField();
         oMeniField = new JTextField();
         passwordField = new JTextField();
-        potvrdiPasswordField = new JTextField();
+        JTextField potvrdiPasswordField = new JTextField();
         spolField = new JTextField();
 
-        snimiNovePodatkeButton = new JButton("Snimi");
+        JButton snimiNovePodatkeButton = new JButton("Snimi");
         //promijeniPassword = new JButton("Promijeni password");
 
-        registerPanel = new JPanel(new GridLayout(14, 1));
+        JPanel registerPanel = new JPanel(new GridLayout(14, 1));
         registerPanel.add(imeLabel);
         registerPanel.add(imeField);
         registerPanel.add(prezimeLabel);
@@ -95,8 +99,6 @@ public class RegisterWindow extends JFrame {
         registerPanel.add(potvrdiPasswordField);
         registerPanel.add(snimiNovePodatkeButton);
 
-       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         //snimiNovePodatkeButton.addActionListener(this);
         add(registerPanel, BorderLayout.CENTER);
         setTitle("Moji podaci");
@@ -104,7 +106,7 @@ public class RegisterWindow extends JFrame {
         setVisible(true);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         snimiNovePodatkeButton.addActionListener(new ActionListener() {
             @Override
@@ -121,16 +123,14 @@ public class RegisterWindow extends JFrame {
                         adresaField.getText(),
                         brojTelefonaField.getText(),
                         oMeniField.getText()
-                        );
+                );
                 Kuhar newKuhar = kuhar.addKuhar(kuhar);
-                try{
+                try {
                     WelcomeScreen welcomeScreen = new WelcomeScreen(newKuhar);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         });
-
     }
-
 }

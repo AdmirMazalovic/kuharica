@@ -8,18 +8,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class WelcomeScreen extends JComponent {
     private static Kuhar kuhar;
+    private BufferedImage backgroundImage = ImageIO.read(getClass().getResource("images/welcomeScreenPhoto.jpg"));
 
     public static Kuhar getKuhar() {
         return kuhar;
     }
-
-    //LoginWindow loginWindow = new LoginWindow();
-    private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto.jpg"));
 
     WelcomeScreen(Kuhar kuhar) throws IOException {
         this.kuhar = kuhar;
@@ -33,13 +30,6 @@ public class WelcomeScreen extends JComponent {
         traziReceptButton.setBounds(500, 200, 200, 50);
         dodajReceptButton.setBounds(500, 300, 200, 50);
         mojProfilButton.setBounds(500, 400, 200, 50);
-//        try {
-//            Image img = ImageIO.read(getClass().getResource("slike/loginButton.png"));
-//            traziReceptButton.setIcon(new ImageIcon(img));
-//        } catch (Exception ex) {
-//            System.out.println(ex);
-//        }
-
         welcomeScreenFrame.add(traziReceptButton);
         welcomeScreenFrame.add(dodajReceptButton);
         welcomeScreenFrame.add(mojProfilButton);
@@ -48,7 +38,6 @@ public class WelcomeScreen extends JComponent {
         welcomeScreenFrame.setLocation(dim.width/2-welcomeScreenFrame.getSize().width/2, dim.height/2-welcomeScreenFrame.getSize().height/2);
 
         welcomeScreenFrame.setVisible(true);
-
         traziReceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,7 +53,6 @@ public class WelcomeScreen extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 KuharWindow kuharWindow = new KuharWindow(kuhar);
-            //    RegisterWindow registerWindow = new RegisterWindow();
             }
         });
 
@@ -78,10 +66,5 @@ public class WelcomeScreen extends JComponent {
                 }
             }
         });
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        new WelcomeScreen(WelcomeScreen.getKuhar());
     }
 }

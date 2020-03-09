@@ -14,14 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class DodajReceptWindow extends JFrame {
-   // private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto2.jpg"));
-    private BufferedImage backgroundImage = ImageIO.read(getClass().getResource("welcomeScreenPhoto2.jpg"));
-
-    private Color colorOldLace = new Color(253, 245, 230);
-
     DodajReceptWindow(Kuhar kuhar) throws IOException {
         final Integer[] dodajNamirnicuTabelaHeight = {16};
         JFrame dodajReceptiFrame = new JFrame();
+        BufferedImage backgroundImage = ImageIO.read(getClass().getResource("images/welcomeScreenPhoto2.jpg"));
         dodajReceptiFrame.setContentPane(new ImagePanel(backgroundImage));
         dodajReceptiFrame.setSize(1200, 800);
 
@@ -165,10 +161,8 @@ class DodajReceptWindow extends JFrame {
         opisPripremeTextField.setLineWrap(true);
         opisPripremeLabel.setBounds(480, 150, labelDefaultWidth, labelDefaultHight);
         opisPripremeTextField.setBounds(480, 200, 520, 180);
-
         dodajReceptiFrame.add(opisPripremeLabel);
         dodajReceptiFrame.add(opisPripremeTextField);
-
 
         // Dodaj namirnicu sekcija
         JButton dodajSastojakButton = new JButton("Dodaj sastojak");
@@ -202,6 +196,9 @@ class DodajReceptWindow extends JFrame {
         dodajReceptiFrame.add(snimiRecept);
         snimiRecept.setVisible(false);
 
+        // Postavi prozor na centar displaya
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        dodajReceptiFrame.setLocation(dim.width / 2 - dodajReceptiFrame.getSize().width / 2, dim.height / 2 - dodajReceptiFrame.getSize().height / 2);
 
         int finalYLabelDefaultPosition = yLabelDefaultPosition;
         dodajSastojakButton.addActionListener(new ActionListener() {

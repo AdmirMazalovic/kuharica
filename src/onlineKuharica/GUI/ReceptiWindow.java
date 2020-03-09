@@ -12,13 +12,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReceptiWindow extends JFrame {
-    //private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto2.jpg"));
-    private BufferedImage backgroundImage = ImageIO.read(getClass().getResource("welcomeScreenPhoto2.jpg"));
+    private BufferedImage backgroundImage = ImageIO.read(getClass().getResource("images/welcomeScreenPhoto2.jpg"));
 
     ReceptiWindow() throws IOException {
         Color colorOldLace  = new Color(253,245,230);
