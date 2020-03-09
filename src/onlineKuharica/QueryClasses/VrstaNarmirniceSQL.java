@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class VrstaNarmirniceSQL extends Connector{
     private String sqlGetAllVrstaNamirnice = "SELECT * FROM online_kuharica.vrsta_namirnice;";
+  //  private String sqlGetVrstaNamirniceByName= "SELECT `online_kuharica`.`vrsta_namirnice`.`vrsta_namirnice_id` FROM `online_kuharica`.`vrsta_namirnice` where `vrsta_namirnice`.`ime_vrste` = ?";
 
     /**
      * Dohvati sve vrste namrnica iz DB-a

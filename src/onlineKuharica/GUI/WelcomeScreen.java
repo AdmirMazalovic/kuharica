@@ -67,6 +67,17 @@ public class WelcomeScreen extends JComponent {
             //    RegisterWindow registerWindow = new RegisterWindow();
             }
         });
+
+        dodajReceptButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    DodajReceptWindow dodajReceptWindow = new DodajReceptWindow(kuhar);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
 

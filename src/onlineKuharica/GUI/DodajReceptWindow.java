@@ -13,12 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DodajReceptWindow extends JFrame {
-    private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto2.jpg"));
-    private Color colorOldLace = new Color(253, 245, 230);
-    private static Integer dodajNamirnicuTabelaHeight = 16;
+class DodajReceptWindow extends JFrame {
+   // private BufferedImage backgroundImage = ImageIO.read(new File("C:\\Users\\Admir Mazalovic\\IdeaProjects\\online_kuharica\\src\\onlineKuharica\\GUI\\welcomeScreenPhoto2.jpg"));
+    private BufferedImage backgroundImage = ImageIO.read(getClass().getResource("welcomeScreenPhoto2.jpg"));
 
-    public DodajReceptWindow() throws IOException {
+    private Color colorOldLace = new Color(253, 245, 230);
+
+    DodajReceptWindow(Kuhar kuhar) throws IOException {
+        final Integer[] dodajNamirnicuTabelaHeight = {16};
         JFrame dodajReceptiFrame = new JFrame();
         dodajReceptiFrame.setContentPane(new ImagePanel(backgroundImage));
         dodajReceptiFrame.setSize(1200, 800);
@@ -89,7 +91,7 @@ public class DodajReceptWindow extends JFrame {
         imeJelaLabel.setText("<html><p><b><font size = \"5\" color = \"white\">Ime jela </p></html>");
         JTextField imeJelaTextField = new JTextField();
         imeJelaLabel.setBounds(xLabelDefaultPosition, yLabelDefaultPosition, labelDefaultWidth, labelDefaultHight);
-        imeJelaTextField.setBounds(xTextFieldDefaultPosition, yTextFieldDefaultPosition, 400, textFieldDefaultHight);
+        imeJelaTextField.setBounds(xTextFieldDefaultPosition, yTextFieldDefaultPosition, 700, textFieldDefaultHight);
         dodajReceptiFrame.add(imeJelaLabel);
         dodajReceptiFrame.add(imeJelaTextField);
 
@@ -159,11 +161,11 @@ public class DodajReceptWindow extends JFrame {
         // Opis pripreme
         JLabel opisPripremeLabel = new JLabel();
         opisPripremeLabel.setText("<html><p><b><font size = \"5\" color = \"white\">Opis pripreme</p></html>");
-        JTextField opisPripremeTextField = new JTextField();
-        //yLabelDefaultPosition += 50;
-        //yTextFieldDefaultPosition += 50;
+        JTextArea opisPripremeTextField = new JTextArea();
+        opisPripremeTextField.setLineWrap(true);
         opisPripremeLabel.setBounds(480, 150, labelDefaultWidth, labelDefaultHight);
         opisPripremeTextField.setBounds(480, 200, 520, 180);
+
         dodajReceptiFrame.add(opisPripremeLabel);
         dodajReceptiFrame.add(opisPripremeTextField);
 
@@ -175,7 +177,7 @@ public class DodajReceptWindow extends JFrame {
         dodajReceptiFrame.add(dodajSastojakButton);
         DefaultTableModel model = new DefaultTableModel();
         JTable dodajNamirnicuTabela = new JTable(model);
-        dodajNamirnicuTabela.setBounds(480, yLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight);
+        dodajNamirnicuTabela.setBounds(480, yLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight[0]);
         model.addColumn("Ime namirnice");
         model.addColumn("Kolicina");
         model.addColumn("Mjerna jedinica");
@@ -207,8 +209,8 @@ public class DodajReceptWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int maxBrojNamirnica = 21;
                 if (model.getRowCount() <= maxBrojNamirnica) {
-                    dodajNamirnicuTabelaHeight = dodajNamirnicuTabelaHeight + 16;
-                    dodajNamirnicuTabela.setBounds(480, finalYLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight);
+                    dodajNamirnicuTabelaHeight[0] = dodajNamirnicuTabelaHeight[0] + 16;
+                    dodajNamirnicuTabela.setBounds(480, finalYLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight[0]);
                     model.addRow(new Object[]{"", "", "", ""});
                     dodajNamirnicuTabela.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(vrsteNamirnicaList));
                     dodajNamirnicuTabela.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(mjerneJediniceList));
@@ -218,12 +220,64 @@ public class DodajReceptWindow extends JFrame {
             }
         });
 
-
         snimiRecept.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String selectedBook = (String) kuhinjeList.getSelectedItem();
-//                System.out.println("You seleted the book: " + selectedBook);
+                int kuhinjaSelcetdIndex = kuhinjeList.getSelectedIndex();
+                Kuhinja selectedKuhinja = kuhinje.get(kuhinjaSelcetdIndex);
+
+                int vrstaJelaIndex = vrstaJelaList.getSelectedIndex();
+                VrstaJela selectedVrstaJela = vrsteJela.get(vrstaJelaIndex);
+
+                int tezinaPripremeIndex = tezinaPripremeList.getSelectedIndex();
+                String selectedTezinaPripreme = tezinaPripreme[tezinaPripremeIndex];
+
+                Jelo jelo = new Jelo(kuhar.getKuharId(),
+                        imeJelaTextField.getText(),
+                        selectedKuhinja.getKuhinjaId(),
+                        selectedVrstaJela.getVrsta_jela_id(),
+                        selectedTezinaPripreme,
+                        trajanjePripremeTextField.getText(),
+                        Integer.parseInt(brojOsobaTextField.getText()),
+                        opisJelaTextField.getText()
+                );
+
+                // Dodavanje jela u DB
+                jelo.addJelo(jelo);
+                Jelo dodanoJelo = jelo.getJeloByNameAndKuharId(jelo.getImeJela(), jelo.getKuharId());
+
+                // Dodavanje recepta za jelo u DB
+                Recept recept = new Recept(dodanoJelo.getJeloId(), opisPripremeTextField.getText());
+                recept.addRecept(recept);
+
+                ArrayList<Namirnica> namirnice = new ArrayList<>();
+                // iteriranje kroz tabelu i uzimanje reda koji je nova namrnica
+                for (int row = 1; row < model.getRowCount(); row++) {
+                    VrstaNamirnice vrstaNamirniceZaDodati = null;
+                    String[] namirnicaIzTabele = new String[4];
+                    for (int column = 0; column < model.getColumnCount(); column++) {
+                        model.getValueAt(row, column);
+                        namirnicaIzTabele[column] = model.getValueAt(row, column).toString();
+                    }
+
+                    // vrati namirnicu po imenu
+                    for (VrstaNamirnice vrsta : vrsteNamirnica) {
+                        if (vrsta.getImeVrste().equals(namirnicaIzTabele[3])) {
+                            vrstaNamirniceZaDodati = vrsta;
+                        }
+                    }
+                    if (vrstaNamirniceZaDodati == null) throw new AssertionError();
+
+                    // dodaj namirnicu u DB
+                    Namirnica namirnica = new Namirnica(
+                            dodanoJelo.getJeloId(),
+                            vrstaNamirniceZaDodati.getVrstaNamirniceId(),
+                            namirnicaIzTabele[0],
+                            namirnicaIzTabele[2],
+                            (long) Double.parseDouble(namirnicaIzTabele[1]));
+                    namirnica.addNamirnica(namirnica, dodanoJelo.getJeloId());
+                }
+
             }
         });
 
@@ -231,11 +285,11 @@ public class DodajReceptWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = dodajNamirnicuTabela.getSelectedRow();
-                if(selectedRow!= 0) {
+                if (selectedRow != 0) {
                     try {
                         model.removeRow(selectedRow);
-                        dodajNamirnicuTabelaHeight = dodajNamirnicuTabelaHeight - 16;
-                        dodajNamirnicuTabela.setBounds(480, finalYLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight);
+                        dodajNamirnicuTabelaHeight[0] = dodajNamirnicuTabelaHeight[0] - 16;
+                        dodajNamirnicuTabela.setBounds(480, finalYLabelDefaultPosition, 520, dodajNamirnicuTabelaHeight[0]);
                     } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
                         ex.printStackTrace();
                     }
@@ -248,9 +302,5 @@ public class DodajReceptWindow extends JFrame {
         });
 
         dodajReceptiFrame.setVisible(true);
-    }
-
-    public static void main(String args[]) throws IOException {
-        new DodajReceptWindow();
     }
 }
