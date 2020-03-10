@@ -8,6 +8,7 @@ public class Kuhinja extends KuhinjaSQL {
     private Integer kuhinjaId;
     private String imeKuhinje;
     private String opisKuhinje;
+    private KuhinjaSQL kuhinjaSQL = new KuhinjaSQL();
 
     public Kuhinja(Integer kuhinjaId, String imeKuhinje, String opisKuhinje) {
         this.kuhinjaId = kuhinjaId;
@@ -47,7 +48,6 @@ public class Kuhinja extends KuhinjaSQL {
      * @return
      */
     public ArrayList<Kuhinja> getAllKuhinja(){
-        KuhinjaSQL kuhinjaSQL = new KuhinjaSQL();
         return kuhinjaSQL.getAllKuhinjaDB();
     }
 }

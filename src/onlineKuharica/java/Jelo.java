@@ -14,6 +14,7 @@ public class Jelo extends JeloSQL{
     private String trajanjePripreme;
     private Integer brojOsoba;
     private String opisJela;
+    private JeloSQL jeloSQL = new JeloSQL();
 
     public Jelo(Integer kuharId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, String tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela) {
         this.kuharId = kuharId;
@@ -108,7 +109,6 @@ public class Jelo extends JeloSQL{
      * @return - sva jela koja je kreirao kuhar
      */
     public ArrayList<Jelo> getAllJelaByKuharId(Integer kuharId) {
-        JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.getJelaByKuharIdDB(kuharId);
     }
 
@@ -128,7 +128,6 @@ public class Jelo extends JeloSQL{
      * @return
      */
     public ArrayList<Jelo> getJeloByKuhinjaId(Integer kuharId){
-        JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.getJelaByKuhinjaIdDB(kuhinjaId);
     }
 
@@ -138,7 +137,6 @@ public class Jelo extends JeloSQL{
      * @return 1 ako je jelo izbrisano, 0 ako brisanje nije uspjesno
      */
     public int deleteJelo(Integer jeloId){
-        JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.deleteJeloDB(jeloId);
     }
 
@@ -147,7 +145,6 @@ public class Jelo extends JeloSQL{
      * @param jelo
      */
     public void addJelo(Jelo jelo){
-        JeloSQL jeloSQL = new JeloSQL();
         jeloSQL.addJeloDB(jelo);
     }
 
@@ -158,7 +155,6 @@ public class Jelo extends JeloSQL{
      * @return
      */
     public Jelo getJeloByNameAndKuharId(String imeJela, Integer kuharId){
-        JeloSQL jeloSQL = new JeloSQL();
         return jeloSQL.getJeloByNameAndKuharIdDB(imeJela, kuharId);
     }
 }

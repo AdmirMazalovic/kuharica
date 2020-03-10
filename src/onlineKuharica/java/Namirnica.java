@@ -11,6 +11,7 @@ public class Namirnica extends NamirnicaSQL {
     private String imeNamirnice;
     private String mjernaJedinica;
     private Long kolicina;
+    NamirnicaSQL namirnicaSQL = new NamirnicaSQL();
 
     public Namirnica(Integer jeloId, Integer vrstaNamirniceId, String imeNamirnice, String mjernaJedinica, Long kolicina) {
         this.jeloId = jeloId;
@@ -77,7 +78,6 @@ public class Namirnica extends NamirnicaSQL {
      * @return - array lista svih namirnica potrebnih za pripremu jela
      */
     public ArrayList<Namirnica> getNamirniceByJeloId(Integer jeloId){
-        NamirnicaSQL namirnicaSQL = new NamirnicaSQL();
         return namirnicaSQL.getNamirniceByJeloIdDB(jeloId);
     }
 
@@ -87,7 +87,6 @@ public class Namirnica extends NamirnicaSQL {
      * @param jeloId - jelo za koje je dodana namirnica
      */
     public void addNamirnica(Namirnica namirnica, Integer jeloId){
-        NamirnicaSQL namirnicaSQL = new NamirnicaSQL();
         namirnicaSQL.addNamirnicaDB(namirnica, jeloId);
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class VrstaJela extends VrstaJelaSQL {
     private int vrsta_jela_id;
     private String vrsta_jela;
+    private VrstaJelaSQL vrstaJelaSQL = new VrstaJelaSQL();
 
     public VrstaJela(int vrsta_jela_id, String vrsta_jela) {
         this.vrsta_jela_id = vrsta_jela_id;
@@ -38,7 +39,6 @@ public class VrstaJela extends VrstaJelaSQL {
      * @return Vrsta jela
      */
     public VrstaJela getVrstaJelaById(Integer vrstaJelaId){
-        VrstaJelaSQL vrstaJelaSQL = new VrstaJelaSQL();
         return vrstaJelaSQL.getVrstaJelaByIdDB(vrstaJelaId);
     }
 
@@ -48,8 +48,7 @@ public class VrstaJela extends VrstaJelaSQL {
      * @return nova dodana vrsta jela
      */
     public VrstaJela addVrstaJela(VrstaJela vrstaJela){
-        VrstaJelaSQL novaVrstaJela = new VrstaJelaSQL();
-        return novaVrstaJela.addVrstaJelaDB(vrstaJela);
+        return vrstaJelaSQL.addVrstaJelaDB(vrstaJela);
     }
 
     /**
@@ -57,7 +56,6 @@ public class VrstaJela extends VrstaJelaSQL {
      * @return
      */
     public ArrayList<VrstaJela> getAllVrstaJela(){
-        VrstaJelaSQL vrstaJelaSQL = new VrstaJelaSQL();
         return vrstaJelaSQL.getAllVrstaJelaDB();
     }
 }

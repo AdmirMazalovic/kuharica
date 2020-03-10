@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class VrstaNamirnice extends VrstaJelaSQL {
     private Integer vrstaNamirniceId;
     private String imeVrste;
+    private VrstaNarmirniceSQL vrstaNarmirniceSQL = new VrstaNarmirniceSQL();
 
     public VrstaNamirnice(Integer vrstaNamirniceId, String imeVrste) {
         this.vrstaNamirniceId = vrstaNamirniceId;
@@ -38,7 +39,6 @@ public class VrstaNamirnice extends VrstaJelaSQL {
      * @return
      */
     public ArrayList<VrstaNamirnice> getAllVrstaNamirnice(){
-        VrstaNarmirniceSQL vrstaNarmirniceSQL = new VrstaNarmirniceSQL();
         return vrstaNarmirniceSQL.getAllVrstaNamirniceDB();
     }
 }

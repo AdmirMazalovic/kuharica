@@ -21,6 +21,7 @@ public class Kuhar extends KuharSQL implements Serializable {
     private String brojTelefona;
     private String oMeni;
     private Date datumRegistracije = null;
+    private KuharSQL kuharSQL = new KuharSQL();
 
     public Kuhar(String ime, String prezime, String email, String password, char spol, Date datumRodjenja, String drzava, String grad, Integer zip, String adresa, String brojTelefona, String oMeni) {
         this.ime = ime;
@@ -151,14 +152,12 @@ public class Kuhar extends KuharSQL implements Serializable {
     public void setDatumRegistracije(Date datumRegistracije) {
         this.datumRegistracije = datumRegistracije;
     }
-
     /**
      * Dohvati kuhara iz baze po id-u
      * @param kuharId - id kuhara
      * @return - kuhar
      */
     public Kuhar getKuharById(Integer kuharId){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getKuharByIdDB(kuharId);
     }
 
@@ -168,7 +167,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - kuhar
      */
     public Kuhar getKuharByName(String imeKuhara, String prezime){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getKuharByNameDB(imeKuhara, prezime);
     }
 
@@ -180,7 +178,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return kuhar
      */
     public Kuhar getKuharForLogin(String ime, String prezime, String password){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getKuharForLoginDB(ime, prezime, password);
     }
 
@@ -190,7 +187,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - kuhar koji je dadan u bazu
      */
     public Kuhar addKuhar(Kuhar kuhar){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.addKuharDB(kuhar);
     }
 
@@ -200,7 +196,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - kuhar sa novim informacijama
      */
     public Kuhar updateKuharInfo(Kuhar kuhar){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.updateKuharInfoDB(kuhar);
     }
 
@@ -210,7 +205,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - kuhar sa novim passwordom
      */
     public Kuhar updateKuharPassword(Kuhar kuhar){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.updateKuharPasswordDB(kuhar);
     }
 
@@ -220,7 +214,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - 1 ako je kuhar uspjesno izbrisan, 0 ako nije uspjesno izbrisan
      */
     public int deleteKuhar(Kuhar kuhar){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.deleteKuharDB(kuhar);
     }
 
@@ -229,7 +222,6 @@ public class Kuhar extends KuharSQL implements Serializable {
      * @return - svi kuhari koji su u bazi online_kuharica
      */
     public ArrayList<Kuhar> getAllKuhar(){
-        KuharSQL kuharSQL = new KuharSQL();
         return kuharSQL.getAllKuharDB();
     }
 }

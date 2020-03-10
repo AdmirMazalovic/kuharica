@@ -8,6 +8,7 @@ public class Recept extends ReceptSQL {
     private Integer jeloId;
     private Date datumObjave;
     private String opisPipreme;
+    ReceptSQL receptSQL = new ReceptSQL();
 
     public Recept(Integer jeloId, String opisPipreme) {
         this.jeloId = jeloId;
@@ -49,7 +50,6 @@ public class Recept extends ReceptSQL {
      * @return - recept za jelo sa jelo id
      */
     public Recept getReceptByJeloId(Integer jeloId){
-        ReceptSQL receptSQL = new ReceptSQL();
         return receptSQL.getReceptByJeloIdDB(jeloId);
     }
 
@@ -58,7 +58,6 @@ public class Recept extends ReceptSQL {
      * @param recept
      */
     public void addRecept(Recept recept){
-        ReceptSQL receptSQL = new ReceptSQL();
         receptSQL.addReceptDB(recept);
     }
 }
