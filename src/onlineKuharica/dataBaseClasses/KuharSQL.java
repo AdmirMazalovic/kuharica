@@ -104,7 +104,7 @@ public class KuharSQL extends Connector {
             e.printStackTrace();
         }
         closeConnectionSQL();
-        if(kuhar.getKuharId() == null) throw new NoSuchElementException();
+        //if(kuhar.getKuharId() == null) throw new NoSuchElementException();
         return kuhar;
     }
 
