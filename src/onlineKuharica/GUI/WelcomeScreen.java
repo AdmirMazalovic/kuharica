@@ -27,12 +27,15 @@ public class WelcomeScreen extends JComponent {
         JButton traziReceptButton = new JButton("Traži recepte");
         JButton dodajReceptButton = new JButton("Dodaj recept");
         JButton mojProfilButton = new JButton("Moj profil");
+        JButton izadjiButton = new JButton("Izađi");
         traziReceptButton.setBounds(500, 200, 200, 50);
         dodajReceptButton.setBounds(500, 300, 200, 50);
         mojProfilButton.setBounds(500, 400, 200, 50);
+        izadjiButton.setBounds(500, 500, 200, 50);
         welcomeScreenFrame.add(traziReceptButton);
         welcomeScreenFrame.add(dodajReceptButton);
         welcomeScreenFrame.add(mojProfilButton);
+        welcomeScreenFrame.add(izadjiButton);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         welcomeScreenFrame.setLocation(dim.width/2-welcomeScreenFrame.getSize().width/2, dim.height/2-welcomeScreenFrame.getSize().height/2);
@@ -64,6 +67,13 @@ public class WelcomeScreen extends JComponent {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+            }
+        });
+
+        izadjiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
