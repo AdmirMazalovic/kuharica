@@ -36,9 +36,14 @@ public class VrstaNamirnice extends VrstaJelaSQL {
 
     /**
      * Dohvati sve vrste namirnica iz baze podataka
+     *
      * @return
      */
-    public ArrayList<VrstaNamirnice> getAllVrstaNamirnice(){
+    public ArrayList<VrstaNamirnice> getAllVrstaNamirnice() {
         return vrstaNarmirniceSQL.getAllVrstaNamirniceDB();
+    }
+
+    public VrstaNamirnice getVrstaNamirniceById(Integer vrstaNamirniceId) {
+        return vrstaNarmirniceSQL.getVrstaNamirniceById(vrstaNamirniceId);
     }
 }

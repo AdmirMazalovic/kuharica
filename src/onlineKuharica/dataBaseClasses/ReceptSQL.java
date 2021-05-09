@@ -8,6 +8,8 @@ import java.sql.SQLException;
 public class ReceptSQL extends Connector {
     String sqlGetReceptByJeloId = "SELECT * FROM `online_kuharica`.`recept` WHERE `recept`.`jelo_id` = ?";
     String sqlAddRecept = "INSERT INTO `online_kuharica`.`recept` (`jelo_id`, `datum_objave`, `opis_pripreme`) VALUES (?, NOW(), ?)";
+    String sqlUpdateRecept = "UPDATE online_kuharica.recept SET opis_pripreme = ? WHERE jelo_id = ?";
+
 
     /**
      * Dohvata recept od jela sa jelo id-om
@@ -60,5 +62,18 @@ public class ReceptSQL extends Connector {
         recept.setJeloId(rs.getInt("jelo_id"));
         recept.setDatumObjave(rs.getDate("datum_objave"));
         recept.setOpisPipreme(rs.getString("opis_pripreme"));
+    }
+
+    public void updateReceptDB(Integer jelo_id, String opis_pripreme) {
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlUpdateRecept);
+            prpStmt.setString(1, opis_pripreme);
+            prpStmt.setInt(2, jelo_id);
+            prpStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

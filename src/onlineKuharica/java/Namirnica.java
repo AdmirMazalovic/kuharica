@@ -89,4 +89,8 @@ public class Namirnica extends NamirnicaSQL {
     public void addNamirnica(Namirnica namirnica, Integer jeloId){
         namirnicaSQL.addNamirnicaDB(namirnica, jeloId);
     }
+
+    public void deleteAllNamirnicaByJeloId(Integer jeloId){
+        namirnicaSQL.deleteAllNamirnicaByJeloIdDB(jeloId);
+    }
 }

@@ -2,6 +2,7 @@ package onlineKuharica.java;
 
 import onlineKuharica.dataBaseClasses.KuhinjaSQL;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Kuhinja extends KuhinjaSQL {
@@ -49,5 +50,9 @@ public class Kuhinja extends KuhinjaSQL {
      */
     public ArrayList<Kuhinja> getAllKuhinja(){
         return kuhinjaSQL.getAllKuhinjaDB();
+    }
+
+    public Kuhinja getKuhinjaById(Integer kuhinjaId) throws SQLException {
+        return kuhinjaSQL.getKuhinjaById(kuhinjaId);
     }
 }

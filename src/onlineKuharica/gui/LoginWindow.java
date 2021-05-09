@@ -65,6 +65,10 @@ public class LoginWindow extends JFrame {
                     // Dohvati kuhara iz baze po imenu, prezimenu i passwordu. U slucaju da nema takvog kuhara,
                     // dobit ce se No such element exception koju baci getKuharForLoginDB metoda
                     kuhar = kuhar.getKuharForLogin(imeKuhara, prezimeKuhara, password);
+                    if(kuhar.getKuharId() == null){
+                        message.setText("<html><p><font color=\"red\">Korisnik ne postoji!</html></p>");
+                            return;
+                    }
                     message.setText("\"<html><p><font color=\"green\"> Korisnik: " + kuhar.getIme() + " " + kuhar.getPrezime() + " uspješno prijavljen!</html></p>");
                     // Ako su podaci ispravni idi na korisnicki prozor
                     setVisible(false);
@@ -72,7 +76,7 @@ public class LoginWindow extends JFrame {
                     WelcomeScreen welcomeScreen = new WelcomeScreen(kuhar);
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    message.setText("<html><p><font color=\"red\">Korisnik ne postoji!</html></p>");
+                    message.setText("<html><p><font color=\"red\">Desila se neočekivana greška. Pokušajte ponovo.</html></p>");
                 }
 
             }

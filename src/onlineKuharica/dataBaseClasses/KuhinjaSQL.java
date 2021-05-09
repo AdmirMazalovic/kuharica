@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class KuhinjaSQL extends Connector  {
     String sqlGetAllKuhinja = "SELECT * FROM online_kuharica.kuhinja";
+    String sqlGetKuhinjaById = "SELECT * FROM online_kuharica.kuhinja WHERE online_kuharica.kuhinja.kuhinja_id = ?";
 
     /**
      * Dohvati sve vrste kuhinja iz baze
@@ -32,6 +33,31 @@ public class KuhinjaSQL extends Connector  {
         }
         return kuhinje;
     }
+
+
+    public Kuhinja getKuhinjaById(Integer kuhinjaId) throws SQLException{
+        connectToDatabase();
+        Kuhinja kuhinja = new Kuhinja();
+
+        try{
+            prpStmt = conn.prepareStatement(sqlGetKuhinjaById);
+            prpStmt.setInt(1, kuhinjaId);
+            rs = prpStmt.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()){
+                setKuhinjaObjectFromResponse(kuhinja);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return kuhinja;
+    }
+
+
 
     /**
      * Helper funkcija za setovanje polja u objektu kuhinja koji se dobije iz ResultSet objekta

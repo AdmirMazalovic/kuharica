@@ -60,4 +60,8 @@ public class Recept extends ReceptSQL {
     public void addRecept(Recept recept){
         receptSQL.addReceptDB(recept);
     }
+
+    public void updateRecept(Integer jeloId, String opisPipreme) {
+        receptSQL.updateReceptDB(jeloId, opisPipreme);
+    }
 }

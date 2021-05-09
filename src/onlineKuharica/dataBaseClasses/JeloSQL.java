@@ -14,6 +14,15 @@ public class JeloSQL extends Connector {
     String sqlDeleteJeloById = "DELETE FROM `online_kuharica`.`jelo` WHERE `jelo`.`jelo_id` = ?";
     String sqlAddJelo = "INSERT INTO `online_kuharica`.`jelo` (`jelo_id`, `kuhar_id`, `ime_jela`, `kuhinja_id`, `vrsta_jela_id`, `tezina_pripreme`, `trajanje_pripreme`, `broj_osoba`, `opis_jela`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     String sqlGetJeloByNameAndKuharId = "SELECT * FROM `online_kuharica`.`jelo` WHERE `jelo`.`kuhar_id` = ? AND `jelo`.`ime_jela` = ?";
+    String sqlUpdateJelo = "UPDATE online_kuharica.jelo " +
+            "SET ime_jela = ?, " +
+            "kuhinja_id = ?, " +
+            "vrsta_jela_id = ?, " +
+             "tezina_pripreme = ?, " +
+            "trajanje_pripreme = ?, " +
+            "broj_osoba = ?, " +
+            "opis_jela = ? " +
+            "WHERE jelo_id = ?";
 
     /**
      * Vraca sva jelo od kuhara
@@ -48,6 +57,28 @@ public class JeloSQL extends Connector {
      * @return - Array list svih jela
      */
     public ArrayList<Jelo> getAllJelo(){
+        connectToDatabase();
+        ArrayList<Jelo> jela = new ArrayList<>();
+        try {
+            prpStmt = conn.prepareStatement(sqlGetAllJelo);
+            rs = prpStmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while (rs.next()) {
+                Jelo jelo = new Jelo();
+                setJeloObjectFromResponse(jelo);
+                jela.add(jelo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConnectionSQL();
+        return jela;
+    }
+
+    public ArrayList<Jelo> getMojaJela(){
         connectToDatabase();
         ArrayList<Jelo> jela = new ArrayList<>();
         try {
@@ -163,6 +194,29 @@ public class JeloSQL extends Connector {
         }
 //        closeConnectionSQL();
         return jelo;
+    }
+
+    /**
+    * Update jelo
+     */
+    public void updateJelo(Integer jeloId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, String tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela){
+        Jelo jelo = new Jelo();
+        connectToDatabase();
+        try {
+            prpStmt = conn.prepareStatement(sqlUpdateJelo);
+            prpStmt.setString(1, imeJela);
+            prpStmt.setInt(2, kuhinjaId);
+            prpStmt.setInt(3, vrstaJelaId);
+            prpStmt.setString(4, tezinaPripreme);
+            prpStmt.setString(5, trajanjePripreme);
+            prpStmt.setInt(6, brojOsoba);
+            prpStmt.setString(7, opisJela);
+            prpStmt.setInt(8, jeloId);
+
+            prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

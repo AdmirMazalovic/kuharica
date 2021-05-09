@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class NamirnicaSQL extends Connector{
     String sqlGetNamirnice = "SELECT * FROM `online_kuharica`.`namirnica` WHERE `jelo_id` = ?";
     String sqlAddNamirnica = "INSERT INTO `online_kuharica`.`namirnica` (`namirnica_id`, `jelo_id`, `vrsta_namirnice_id`, `ime_namirnice`, `mjerna_jedinica`, `kolicina`) VALUES (?, ?, ?, ? , ?, ?)";
+    String sqlDeleteAllNamirnicaByJeloId = "DELETE FROM online_kuharica.namirnica WHERE jelo_id = ?";
 
     /**
      * Dohvati sve namirnice za jelo sa [jeloId]
@@ -58,11 +59,22 @@ public class NamirnicaSQL extends Connector{
             e.printStackTrace();
         }
     }
-    //`namirnica_id`, `jelo_id`, `vrsta_namirnice_id`, `ime_namirnice`, `mjerna_jedinica`, `kolicina`) VALUES
+
+    public void deleteAllNamirnicaByJeloIdDB(Integer jelo_id){
+        connectToDatabase();
+        try{
+            prpStmt = conn.prepareStatement(sqlDeleteAllNamirnicaByJeloId);
+            prpStmt.setInt(1, jelo_id);
+            prpStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void setNamirnicaFromResponse(ResultSet rs, Namirnica namirnica) throws SQLException {
         namirnica.setNamirnicaId(rs.getInt("namirnica_id"));
         namirnica.setJeloId(rs.getInt("jelo_id"));
+        namirnica.setVrstaNamirniceId(rs.getInt("vrsta_namirnice_id"));
         namirnica.setImeNamirnice(rs.getString("ime_namirnice"));
         namirnica.setMjernaJedinica(rs.getString("mjerna_jedinica"));
         namirnica.setKolicina(rs.getLong("kolicina"));

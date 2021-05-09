@@ -148,6 +148,10 @@ public class Jelo extends JeloSQL{
         jeloSQL.addJeloDB(jelo);
     }
 
+    public void updateJelo(Integer jeloId, String imeJela, Integer kuhinjaId, Integer vrstaJelaId, String tezinaPripreme, String trajanjePripreme, Integer brojOsoba, String opisJela){
+        jeloSQL.updateJelo(jeloId, imeJela, kuhinjaId, vrstaJelaId, tezinaPripreme, trajanjePripreme, brojOsoba, opisJela);
+    }
+
     /**
      * Dohavati jelo iz DB za jelo sa [imeJela] od kuhara sa [kuharId]
      * @param imeJela
